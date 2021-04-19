@@ -1,0 +1,11 @@
+.container {
+    width: 70%;
+    margin: auto;
+}
+.dashboardHeader p {
+    margin-top: -1em;
+}
+.dashboardContent {
+    display: flex;
+    gap: 1em; 
+}

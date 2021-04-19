@@ -1,0 +1,65 @@
+[
+  {
+    "id": "1",
+    "plant_name": "cactus",
+    "location": "Cafeteria",
+    "icon": "plant1",
+    "last_watering_date": "2021-01-02T00:00:00.000Z",
+    "schedule": 40,
+    "watered_by": "john"
+  },
+  {
+    "id": "2",
+    "plant_name": "gardenia",
+    "location": "hallway",
+    "icon": "plant1",
+    "last_watering_date": "2021-04-02T11:06:00.000Z",
+    "schedule": 15,
+    "watered_by": "john"
+  },
+  {
+    "id": "3",
+    "plant_name": "aloe vera",
+    "location": "hallway",
+    "icon": "plant1",
+    "last_watering_date": "2021-01-02T00:00:00.000Z",
+    "schedule": 25,
+    "watered_by": "kari"
+  },
+  {
+    "id": "4",
+    "plant_name": "cactus",
+    "location": "hallway",
+    "icon": "plant1",
+    "last_watering_date": "2021-01-02T00:00:00.000Z",
+    "schedule": 40,
+    "watered_by": "ola"
+  },
+  {
+    "id": "5",
+    "plant_name": "missionary plant",
+    "location": "Main entrance",
+    "icon": "plant1",
+    "last_watering_date": "2021-04-12T00:00:00.000Z",
+    "schedule": 10,
+    "watered_by": "pablo"
+  },
+  {
+    "id": "6",
+    "plant_name": "Citrus plant",
+    "location": "hallway",
+    "icon": "plant1",
+    "last_watering_date": "2021-04-02T00:00:00.000Z",
+    "schedule": 12,
+    "watered_by": "jian-yang"
+  },
+  {
+    "id": "7",
+    "plant_name": "aloe vera",
+    "location": "hallway",
+    "icon": "plant1",
+    "last_watering_date": "2021-01-01T00:00:00.000Z",
+    "schedule": 25,
+    "watered_by": "aisha"
+  }
+]

@@ -1,0 +1,47 @@
+@import '../../var-styles.css';
+
+.inputField {
+    margin-bottom: 1em;
+    max-width: 300px;
+}
+
+.inputField label {
+    display: block;
+    margin-bottom: .1em;
+    font-weight: 500;
+}
+
+.input {
+    font-size: inherit;
+    font-family: inherit;
+    display: block;
+    width: 100%;
+    padding: 1em 1.5em;
+    /* border-radius: 0.25rem; */
+    border-radius: 0;
+    /* border: 1px solid black; */
+    border: none;
+    background-color: var(--color-white-dark);
+}
+
+.input:focus {
+    border: 2px solid black;
+    outline: none;
+}
+
+.errorMessage {
+    display: block;
+    color: var(--color-danger);
+    /* font-weight: 700; */
+    letter-spacing: .02em;
+    /* margin-top: .1em; */
+}
+
+.input.error {
+    border: 3px solid var(--color-danger);
+    background-color: var(--color-danger-light);
+}
+
+.input.error:focus {
+    outline: none;
+}

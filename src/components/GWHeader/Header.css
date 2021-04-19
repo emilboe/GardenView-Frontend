@@ -1,0 +1,21 @@
+header{
+	display: flex;
+	padding: 0.75rem 2rem;
+	background-color: white;
+	align-items: center;
+	justify-content: space-between;
+}
+.logoWrapper{
+	display: flex;
+	align-items: center;
+	margin-top: 5px;
+}
+.navlink{
+	text-decoration: none;
+	color: black;
+	font-size: 1.8rem;
+	font-family: 'Libre Baskerville', serif;
+}
+.navlink:hover{
+	color: #555555;font-style: italic;
+}

@@ -1,0 +1,90 @@
+.wrapper {
+  max-width: 450px;
+  box-shadow: 0px 12px 40px #0002;
+  padding: 1.3rem;
+  margin: 0.5rem;
+  margin-bottom: 1rem;
+  background-color: white;
+  border-radius: .2em;
+}
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
+.extra-info {
+  display: flex;
+  align-items: center;
+  text-transform: capitalize;
+  font-family: "Libre Baskerville", serif;
+  letter-spacing: 1px;
+  font-size: 1.1rem;
+}
+.name {
+  font-size: 1.7rem;
+  font-weight: bold;
+  font-family: "Libre Baskerville", serif;
+  text-transform: capitalize;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.plantIcon {
+  object-fit: contain;
+  width: 35%;
+  max-height: 9rem;
+  transform: scale(1.1);
+}
+.hDiv {
+  display: flex;
+  flex-direction: row;
+}
+.textIcon {
+  height: 22px;
+  width: 22px;
+  margin: 8px;
+  margin-left: 0;
+  margin-right: 10px;
+}
+progress {
+  border: 0;
+  height: 12px;
+  background: #ddd;
+  border-radius: 100px;
+  width: 100%;
+}
+
+progress::-moz-progress-bar {
+  border-radius: 100px;
+  background: linear-gradient(to right, #054f5c, #279b91);
+}
+
+progress::-webkit-progress-bar {
+  background: #ddd;
+  border-radius: 100px;
+}
+
+progress::-webkit-progress-value {
+  border-radius: 100px;
+  background: linear-gradient(to right, #054f5c, #279b91);
+}
+.infoBox {
+  width: 65%;
+}
+.warning{
+  box-shadow: 0 0 10px crimson;
+}
+.progressText {
+  margin: auto;
+  width: fit-content;
+  font-size: 0.8rem;
+  margin-top: 6px;
+  font-weight: bold;
+  color: #13453a;
+}
+.ellipse {
+  float: right;
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+}

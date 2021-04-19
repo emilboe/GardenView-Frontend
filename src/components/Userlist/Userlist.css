@@ -1,0 +1,49 @@
+.userlistContainer {
+    padding: .2em 1.6em;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    min-height: 50vh;
+}
+.userlistContainer button {
+    text-transform: uppercase;
+    margin: 0;
+    padding: 0.3em 1em;
+    border-radius: 100px;
+    margin-left: 1em;
+    border: 1px solid green;
+    color: green;
+}
+.userlistContainer button:hover {
+    color: white;
+    background-color: green;
+}
+.userlistHeader {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    list-style: none;
+    display: inline-block;
+    color: black;
+    font-size: 14px;
+    width: 100%;
+}
+.userlistContainer .content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-transform: capitalize;
+}
+.userlist .delete {
+    justify-self: flex-end;
+    border: 1px solid red;
+    color: red;
+}
+
+.userlist .delete:hover {
+    color: white;
+    background-color: red;
+}
+.userlist .user .content {
+    display: inline-flex;
+    gap: 10px;
+}

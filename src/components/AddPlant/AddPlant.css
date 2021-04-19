@@ -1,0 +1,39 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400&display=swap");
+
+.form {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 2em;
+    border-radius: 0.4em;
+    width: 20em;
+}
+.form label {
+    font-family: "Poppins", sans-serif;
+    margin-top: 0.4em;
+}
+.form span {
+    font-size: small;
+}
+.form :is(input, textarea, select) {
+    border: none;
+    background-color: rgb(198, 233, 230);
+    border-radius: 0.1em;
+    padding: 1em;
+}
+.form button {
+    margin: 1em;
+    font-size: x-large;
+    background-color: rgb(47, 197, 164);
+    border: none;
+    color: white;
+    border-radius: 0.2em;
+    width: 80%;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.form button:hover {
+    background-color: rgb(66, 224, 190);
+    box-shadow: 0 0 20px rgb(66, 224, 190, 0.3);
+    width: 80.2%;
+}

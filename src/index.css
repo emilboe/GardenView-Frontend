@@ -1,0 +1,14 @@
+@import './var-styles.css';
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+  margin: 0;
+  letter-spacing: 1.6;
+  background-color: var(--color-white);
+}

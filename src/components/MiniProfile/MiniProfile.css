@@ -1,0 +1,29 @@
+.miniprofilecontainer {
+    background-color: white;
+    width: 40%;
+    padding: 2em;
+    border-radius: .3em;
+}
+.miniprofilecontainer h3{
+    font-size: medium;
+}
+.miniprofilecontainer .capt{
+    text-transform: capitalize;
+}
+.miniprofilecontainer p{
+    font-size: x-large;
+    margin-top: -.8em;
+}
+
+.miniprofilecontainer button {
+    text-transform: uppercase;
+    margin: 0;
+    padding: 0.3em 1em;
+    border-radius: 100px;
+    border: 1px solid green;
+    background-color: white;
+}
+.miniprofilecontainer button:hover {
+    color: white;
+    background-color: green;
+}
