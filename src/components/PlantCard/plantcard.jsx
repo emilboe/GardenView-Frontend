@@ -15,6 +15,7 @@ const daysUntil = (data) => {
 	var a = moment();
 	var b = moment(data.last_watering_date);
 	var diff = a.diff(b, 'days');
+	console.log(data.schedule);
 	return (data.schedule - diff);
 }
 
@@ -30,8 +31,12 @@ const killThisPlant = (id) => {
 		// this is an awful implementation, should reload the parent component with prop function probably.
 		window.location.reload();
 	}catch(err){
-		console.log('what')
+		console.log('what');
 	}
+}
+
+const progressValue = (data) => {
+	return (data.schedule - daysUntil(data));
 }
 
 const PlantCard = ({ data }) => {
@@ -66,7 +71,7 @@ const PlantCard = ({ data }) => {
 				</div>
 				<img src={`assets/plant${data.icon}.png`} alt="plant" className="plantIcon" />
 			</div>
-			<progress color="#8ccc62" max={data.schedule} value={data.schedule - daysUntil(data)} aria-valuemax={data.schedule} aria-valuemin="0" aria-valuenow={data.schedule - daysUntil(data)} tabIndex="-1"></progress>
+			<progress color="#8ccc62" max={data.schedule} value={progressValue(data)} aria-valuemax={data.schedule} aria-valuemin="0" aria-valuenow={data.schedule - daysUntil(data)} tabIndex="-1"></progress>
 			<p className="progressText">{progressData.message}</p>
 
 		</div>
