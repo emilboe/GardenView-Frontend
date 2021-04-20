@@ -1,8 +1,6 @@
 import axios from 'axios';
 import { getUser } from '../helpers/storage';
 
-
-
 const fetchPlants = () => {
     return axios.get('/plants');
 }
@@ -11,6 +9,14 @@ const addPlant = (object) => {
     if (user.role !== 'manager') return { error: 'Only managers can add plants' }
     return axios.post('/plants', object);
 };
+const editPlant = (data) => {
+    const user = getUser()
+    if (user.role !== 'manager') return { error: 'Only managers can edit plants' }
+    console.log('tryna edit here', data.id, data.formData)
+    // return {message: 'cool'}
+    // return id
+    return axios.put(`/plants/edit/${data.id}`, data.formData);
+}
 const killPlant = (id) => {
     const user = getUser()
     if (user.role !== 'manager') return { error: 'Only managers can kill plants' }
@@ -25,11 +31,11 @@ const waterPlant = (id, watered_by) => {
     // return id
     return axios.put(`/plants/water/${id}`, { watered_by });
 }
-const fertPlant = (id, fert_by) => {
+const fertPlant = (id, formData) => {
     const user = getUser()
     if (user.role !== 'manager') return { error: 'Only managers can fertilize plants' }
     console.log('yeehaw we fertilized it', id)
     // return id
-    return axios.put(`/plants/fert/${id}`, { fert_by });
+    return axios.put(`/plants/fert/${id}`, { formData });
 }
-export { fetchPlants, addPlant, killPlant, waterPlant, fertPlant};
+export { fetchPlants, addPlant, editPlant, killPlant, waterPlant, fertPlant };

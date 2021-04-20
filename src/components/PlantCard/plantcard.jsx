@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import moment from 'moment';
 import Popup from '../Popup/Popup';
 import PopupData from '../PopupData/PopupData'
-import { killPlant, waterPlant, fertPlant } from '../../api/plants';
+import { killPlant, waterPlant, fertPlant, editPlant } from '../../api/plants';
 import { getUser } from '../../helpers/storage';
 
 
@@ -37,6 +37,16 @@ const PlantCard = ({ data, fetchPlants, reRender }) => {
 		try {
 			console.log(id, 'fertilized pog')
 			fertPlant(id, user.firstName)
+			fetchPlants()
+			reRender()
+		} catch (err) {
+			console.log('Nah, cant fert');
+		}
+	}
+	const editThisPlant = (id, formData) => {
+		try {
+			console.log(id, 'fertilized pog')
+			editPlant(id, formData)
 			fetchPlants()
 			reRender()
 		} catch (err) {
@@ -91,7 +101,7 @@ const PlantCard = ({ data, fetchPlants, reRender }) => {
 			</div>
 			{isOpen &&
 				<Popup
-					content={<PopupData info={data} kill={killThisPlant} water={waterThisPlant} fert={fertilizeThisPlant} />}
+					content={<PopupData info={data} kill={killThisPlant} water={waterThisPlant} fert={fertilizeThisPlant} edit={editThisPlant}/>}
 					handleClose={togglePopup}
 				/>}
 		</>
