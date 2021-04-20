@@ -1,9 +1,12 @@
 .plantView {
-    margin: auto;
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-  }
+  margin: auto;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+button{
+  cursor: pointer;
+}
 .content-wrapper {
   width: 80vw;
   margin: 0 auto;
