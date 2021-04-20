@@ -1,9 +1,9 @@
 .plantView {
-  margin: auto;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-}
+    margin: auto;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
 .content-wrapper {
   width: 80vw;
   margin: 0 auto;
@@ -26,7 +26,6 @@
 .segment-title {
   font-size: 3.2rem;
   text-transform: uppercase;
-  margin-bottom: 7px;
   margin-right: auto;
   font-family: "Antonio", sans-serif;
 }

@@ -1,14 +1,14 @@
 .userlistContainer {
-    padding: .2em 1.6em;
+    padding: 1.1em;
     width: 100%;
     background-color: rgb(255, 255, 255);
     min-height: 50vh;
 }
 .userlistContainer button {
+    background-color: white;
     text-transform: uppercase;
     margin: 0;
-    padding: 0.3em 1em;
-    border-radius: 100px;
+    padding: 0.4em .8em;
     margin-left: 1em;
     border: 1px solid green;
     color: green;
@@ -46,4 +46,8 @@
 .userlist .user .content {
     display: inline-flex;
     gap: 10px;
+}
+.user{
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
 }

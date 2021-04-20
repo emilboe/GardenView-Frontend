@@ -23,11 +23,15 @@
   overflow: auto;
 }
  
+ .box button{
+  margin: 0;
+ }
+
 .close-icon {
   content: 'x';
   cursor: pointer;
   position: fixed;
-  right: calc(15% - 30px);
+  right: calc(15% - 11px);
   top: calc(100vh - 85vh - 33px);
   background: #ededed;
   width: 25px;
@@ -37,4 +41,7 @@
   text-align: center;
   border: 1px solid #999;
   font-size: 20px;
+}
+.popupInfo{
+  margin-bottom: 1rem;  
 }

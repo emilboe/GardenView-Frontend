@@ -31,8 +31,11 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 1em;
+    padding: 0 1.5em;
     margin-bottom: 60px;
+}
+a.link-text {
+    font-size: 1.2rem;
 }
 /* 
 .link-text {
@@ -48,6 +51,7 @@ header {
 
 .link-text:hover {
     text-decoration: underline;
+    font-style: italic;
 }
 
 .logo {

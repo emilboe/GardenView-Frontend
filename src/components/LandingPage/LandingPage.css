@@ -1,7 +1,7 @@
 .plantView {
     margin: auto;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     flex-wrap: wrap;
   }
   .content-wrapper {
@@ -24,9 +24,8 @@
     z-index: 100 !important;
   }
   .segment-title {
-    font-size: 3.2rem;
+    font-size: 3rem;
     text-transform: uppercase;
-    margin-bottom: 7px;
     margin-right: auto;
     font-family: "Antonio", sans-serif;
   }
@@ -92,3 +91,41 @@
     background-color: rgba(0, 0, 0, 0.1);
   }
   
+  button{
+    display: block;
+    font-size: 1.1rem;
+    font-family: "Antonio", sans-serif;
+    line-height: 1.3;
+    padding: .6em .8em;
+    max-width: 250px;
+    box-sizing: border-box;
+    margin: 0 1rem;
+    border: 1px solid green;
+    color: green;
+    background-color: white; 
+    letter-spacing: 1px;
+}
+button:hover{
+  color: #fff;
+  background-color: green;  
+}
+
+@media screen and (max-width: 520px) {
+  .segment-header{
+    flex-direction: column;
+  }
+  .segment-title {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  .segment-header button{
+    order: 3;
+    width: 100%;
+  }
+  .CustomSelect {
+    margin-bottom: 0.5rem;
+  }
+  .content-wrapper{
+    width: 95vw;
+  }
+}

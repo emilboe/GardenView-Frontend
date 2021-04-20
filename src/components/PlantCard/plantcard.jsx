@@ -14,9 +14,8 @@ const convertDate = (data) => {
 const daysUntil = (data) => {
 	var a = moment();
 	var b = moment(data.last_watering_date);
-	var diff = a.diff(b, 'days');
-	console.log(data.schedule);
-	return (data.schedule - diff);
+	var differnce = a.diff(b, 'days', true);
+	return (Math.floor(data.schedule - differnce));
 }
 
 const consistencyCheck = (data) => {
@@ -55,8 +54,10 @@ const PlantCard = ({ data }) => {
 			{isOpen &&
 				<Popup
 					content={<>
+						<div class="popupInfo">
 						<b>Popup med mer info?</b>
 						<p>{data.bio}</p>
+						</div>
 						<button onClick={() => killThisPlant(data._id)}>Delete Plant</button>
 					</>}
 					handleClose={togglePopup}
