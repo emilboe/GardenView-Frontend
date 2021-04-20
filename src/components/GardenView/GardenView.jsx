@@ -17,19 +17,23 @@ class Dashboard extends Component {
         this.state = { isOpen: false }
     }
     async componentDidMount() {
+        this.getPlants()
+    }
+    async getPlants() {
         const res = await fetchPlants();
         console.log('Plants have been fetched', res.data);
         if (res.error) {
             this.setState({ error: res.error });
         }
         else {
+            console.log(res.data)
             this.setState({ data: res.data, isFetching: false, error: null });
         }
     }
 
     togglePopup() {
         this.setState({ isOpen: !this.state.isOpen });
-        if(this.state.isOpen === true) window.location.reload();
+        if (this.state.isOpen === true) window.location.reload();
         console.log('popoup!!!')
     }
 
@@ -47,10 +51,10 @@ class Dashboard extends Component {
                 <div className="content-wrapper">
                     <div className="segment-header">
                         <h1 className="segment-title">Plant Overview</h1>
-                        <button onClick={() => this.togglePopup()}>Add plant</button>
+                        {manager && <button onClick={() => this.togglePopup()}>Add plant</button>}
                         {manager && isOpen &&
                             <Popup
-                                content={<AddPlant />}
+                                content={<AddPlant fetchPlants={this.getPlants.bind(this)}/>}
                                 handleClose={() => this.togglePopup()}
                             />}
                         {/* {manager && <Link to="/addPlant"><button>Add plant</button></Link>} */}
@@ -58,7 +62,7 @@ class Dashboard extends Component {
                         <CustomSelect />
                     </div>
                     <div className="plantView">
-                        {data && data.length > 0 && data.map((item) => <PlantCard data={item} key={item.id} />)}
+                        {data && data.length > 0 && data.map((item) => <PlantCard fetchPlants={this.getPlants.bind(this)} reRender={this.render} data={item} key={item.id} />)}
                     </div>
                 </div>
             </div>

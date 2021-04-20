@@ -16,6 +16,20 @@ const killPlant = (id) => {
     if (user.role !== 'manager') return { error: 'Only managers can kill plants' }
     console.log('yeehaw we killed it', id)
     // return id
-    return axios.get(`/plants/kill/${id}`, { _id: id });
+    return axios.delete(`/plants/kill/${id}`, { _id: id });
 }
-export { fetchPlants, addPlant, killPlant };
+const waterPlant = (id, watered_by) => {
+    const user = getUser()
+    if (user.role !== 'manager') return { error: 'Only managers can water plants' }
+    console.log('we bout to water', id)
+    // return id
+    return axios.put(`/plants/water/${id}`, { watered_by });
+}
+const fertPlant = (id, fert_by) => {
+    const user = getUser()
+    if (user.role !== 'manager') return { error: 'Only managers can fertilize plants' }
+    console.log('yeehaw we fertilized it', id)
+    // return id
+    return axios.put(`/plants/fert/${id}`, { fert_by });
+}
+export { fetchPlants, addPlant, killPlant, waterPlant, fertPlant};

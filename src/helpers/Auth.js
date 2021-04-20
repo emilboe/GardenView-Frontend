@@ -1,6 +1,6 @@
 //Code from https://codesandbox.io/s/q9m26noky6?file=/src/helpers/AuthContext.js:0-638 
 import React from 'react';
-import { login } from '../api/users';
+import { login, register } from '../api/users';
 import { getToken, setToken, getUser, setUser, clearLocalStorage } from './storage';
 const INITIAL_STATE = { isAuth: false, token: null, user: null };
 
@@ -17,6 +17,17 @@ class AuthProvider extends React.Component {
       this.setState({ isAuth: true, token, user });
     }
   }
+
+
+  register = async (userData) => {
+    const { firstName, lastName, email, password, role } = userData;
+    try {
+      const response = await register(firstName, lastName, email, password, role);
+      return response.data;
+    } catch (err) {
+      return err.response.data;
+    }
+  };
 
   login = async (userData) => {
     const { email, password } = userData;
@@ -74,6 +85,7 @@ class AuthProvider extends React.Component {
           token: this.state.token,
           user: this.state.user,
           login: this.login,
+          register: this.register,
           logout: this.logout,
           generateHeaders: this.generateHeaders
         }}

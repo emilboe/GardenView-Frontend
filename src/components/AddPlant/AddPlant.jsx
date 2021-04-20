@@ -21,14 +21,14 @@ class AddPlant extends Component {
             const { plant_name, location, schedule, bio, icon } = this.state
             console.log({ plant_name, location, schedule, bio, icon })
             const user = getUser()
-            const res = await addPlant({ plant_name, location, schedule, bio, icon, watered_by: user.firstName});
+            const res = await addPlant({ plant_name, location, schedule, bio, icon, watered_by: user.firstName, fert_by: user.firstName});
             if (res.error) {
                 this.setState({ error: res.error })
             }
             else {
                 this.setState({ redirect: '/gardenview' }, () => {
                     console.log('pog new plant')
-                    // this.props.onLoginSuccess();
+                    this.props.fetchPlants();
                 });
             }
         }
@@ -48,10 +48,10 @@ class AddPlant extends Component {
 
     render() {
         if (this.state.redirect)
-            return (<Redirect to={this.state.redirect} />);
+            return (<h1>Plant added!</h1>);
 
         return (
-            <div className="container">
+            <div className="formContainer">
                 <h1>Add Plant</h1>
                 <form ref={this.form} onSubmit={this.handleAddPlant} className="form">
                     <label>Plant Name </label>
@@ -67,7 +67,7 @@ class AddPlant extends Component {
                     <textarea type="text" name="bio" rows="4" cols="50" value={this.state.bio} onChange={this.handleInputChange} required />
 
                     <label>Icon</label>
-                    <select name="icon" defaultValue="1" value={this.state.icon} onChange={this.handleInputChange} required>
+                    <select name="icon" value={this.state.icon} onChange={this.handleInputChange} required>
                         <option name="1" value="1">1</option>
                         <option name="2" value="2">2</option>
                         <option name="3" value="3">3</option>

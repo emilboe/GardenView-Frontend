@@ -7,7 +7,7 @@ class Login extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { redirect: false, error: '', email: '', password: '' };
+        this.state = { redirect: false, error: '', firstName: '', lastName: '', email: '', password: '', password2: '' };
         this.form = React.createRef();
     }
 
@@ -15,25 +15,26 @@ class Login extends Component {
         this.context.logout();
     }
 
-    handleLogIn = async (event) => {
+    handleRegister = async (event) => {
         event.preventDefault();
+        const { valid, error } = this._validate()
+        this.setState({ error: error });
 
         //This should implement a better validation
-        if (this._validate()) {
-            const { email, password } = this.state
-            const res = await this.context.login({ email, password });
+        if (valid) {
+
+            const { firstName, lastName, email, password } = this.state
+            console.log(this.state)
+            const res = await this.context.register({ firstName, lastName, email, password, role: 'user' });
 
             if (res.error) {
                 this.setState({ error: res.error })
             }
             else {
-                this.setState({ redirect: '/profile' }, () => {
-                    this.props.onLoginSuccess();
+                this.setState({ redirect: '/login' }, () => {
+                    // this.props.onLoginSuccess();
                 });
             }
-        }
-        else {
-            this.setState({ error: 'The form is not valid' });
         }
     }
 
@@ -43,7 +44,12 @@ class Login extends Component {
     }
 
     _validate() {
-        return this.form.current.reportValidity();
+        const { password, password2 } = this.state
+        const formOk = this.form.current.reportValidity();
+        if (!formOk) return { valid: false, error: 'form invalid' }
+        if (password !== password2) return { valid: false, error: 'passwords do not match' }
+        console.log('formok', formOk)
+        return { valid: true, error: '' }
     }
 
     render() {
@@ -53,25 +59,29 @@ class Login extends Component {
         return (
             <div className="container">
                 <h1>Register</h1>
-                {this.context.isAuth && <button onClick={this.handleLogOut}>Log out</button>}
+                {/* {this.context.isAuth && <button onClick={this.handleRegister}>Log out</button>} */}
                 {!this.context.isAuth &&
-                    <form ref={this.form} onSubmit={this.handleLogIn} className="form">
+                    <form ref={this.form} onSubmit={this.handleRegister} className="form">
+
+                        <label>First Name </label>
+                        <input type="text" name="firstName" value={this.state.firstName} onChange={this.handleInputChange} required />
+
+                        <label>Surname </label>
+                        <input type="text" name="lastName" value={this.state.lastName} onChange={this.handleInputChange} required />
+
                         <label>Email</label>
                         <input type="email" name="email" value={this.state.email} onChange={this.handleInputChange} required />
 
                         <label>Password </label>
                         <input type="password" name="password" value={this.state.password} onChange={this.handleInputChange} required />
 
-                        <label>Name </label>
-                        <input type="password" name="password" value={this.state.password} onChange={this.handleInputChange} required />
+                        <label>Re-type Password </label>
+                        <input type="password" name="password2" value={this.state.password2} onChange={this.handleInputChange} required />
 
-                        <label>Password </label>
-                        <input type="password" name="password" value={this.state.password} onChange={this.handleInputChange} required />
-
-                        <button type="submit">Log in</button>
+                        <button type="submit">Register</button>
+                        {this.state.error && <div>{this.state.error}</div>}
                     </form>
                 }
-                {this.state.error && <div>{this.state.error}</div>}
             </div>
         );
     }
