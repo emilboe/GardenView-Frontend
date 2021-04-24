@@ -36,8 +36,8 @@ class Header extends Component {
                     </Link>
                     <ul>
                         {/* {isAuth && <li><Link className="link-text" to="/profile">Profile</Link></li>} */}
-                        {manager && <li><Link className="link-text" to="/dashboard">Dashboard</Link></li>}
-                        {!manager && isAuth && <li><Link className="link-text" to="/profile">{firstName} {lastName}</Link></li>}
+                        {manager && <li><Link className="link-text" to="/dashboard">Userlist</Link></li>}
+                        {isAuth && <li><Link className="link-text" to="/profile">{firstName} {lastName}</Link></li>}
                         {!isAuth && <li><Link className="link-text" to="/login">Log in</Link> / <Link className="link-text" to="/register">Register</Link></li>}
                         {isAuth && <li><Link className="link-text" to="/" onClick={this.handleLogOut}>Log out</Link></li>}
                     </ul>

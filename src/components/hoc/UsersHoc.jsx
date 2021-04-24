@@ -14,6 +14,7 @@ function withUsersFetch(WrappedComponent) {
 
         async componentDidMount() {
             const headers = this.context.generateHeaders();
+            console.log('headers in hoc', headers)
             const res = await fetchUsers(headers);
             console.log('Users have been fetched', res);
             if(res.error){

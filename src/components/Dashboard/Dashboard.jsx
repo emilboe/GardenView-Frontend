@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Userlist from '../Userlist/Userlist';
+import CustomSelect from '../CustomSelect/';
 import MiniProfile from '../MiniProfile/MiniProfile';
 import './Dashboard.css'
 
@@ -16,12 +17,15 @@ class Dashboard extends Component {
         return (
             <div className="container">
                 <div className="dashboardHeader">
-                    <h1>Dashboard</h1>
-                    <p>Manager Dashboard</p>
+                    <div className="segment-header">
+                        <h1 className="segment-title">All Users</h1>
+                        <CustomSelect />
+                    </div>
+                    {/* <p>Manager Dashboard</p> */}
                 </div>
                 <div className="dashboardContent">
                     <Userlist users={this.props.users} />
-                    <MiniProfile /> 
+                    {/* <MiniProfile />  */}
                 </div>
             </div>
         );
