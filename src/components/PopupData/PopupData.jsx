@@ -74,13 +74,13 @@ class PopupData extends Component {
                     <div className="popupContent">
                         {!this.state.formIsOpen ? (
                             <ul className="indented">
-                                <li>Bio: {bio}</li>
-                                <li>Current Location: {location}</li>
-                                <li>Last fertilizing date: {convertDate(last_fertilizing_date)}</li>
-                                <li>Laste watering date: {convertDate(last_watering_date)}</li>
-                                <li>Must be watered every {schedule} days</li>
-                                <li>Last watered by: {watered_by}</li>
-                                <li>Last fertilized by: {fertilized_by}</li>
+                                <li><b>Bio:</b> {bio}</li>
+                                <li><b>Current Location:</b> {location}</li>
+                                <li><b>Last fertilizing date:</b> {convertDate(last_fertilizing_date)}</li>
+                                <li><b>Laste watering date:</b> {convertDate(last_watering_date)}</li>
+                                <li>Must be watered every <b>{schedule} days</b></li>
+                                <li><b>Last watered by:</b> {watered_by}</li>
+                                <li><b>Last fertilized by:</b> {fertilized_by}</li>
                             </ul>
                         ) : (
                             <>

@@ -2,7 +2,7 @@ import './PlantCard.css';
 import React, { useState } from 'react';
 import moment from 'moment';
 import Popup from '../Popup/Popup';
-import PopupData from '../PopupData/PopupData'
+import PopupData from '../PopupData/PopupData';
 import { killPlant, waterPlant, fertPlant, editPlant } from '../../api/plants';
 import { getUser } from '../../helpers/storage';
 
@@ -69,7 +69,7 @@ const PlantCard = ({ data, fetchPlants, reRender }) => {
 	const consistencyCheck = (data) => {
 		const dataIn = daysUntil(data);
 		if (dataIn >= 3) { return { message: `${dataIn} days until next watering`, style: '' } }
-		if (dataIn <= 2) { return { message: `${dataIn} days until next watering`, style: 'warning' } }
+		if (dataIn <= 2 && dataIn > 0) { return { message: `${dataIn} days until next watering`, style: 'warning' } }
 		else if (dataIn < 0) { return { message: `should've been watered ${(dataIn * -1)} days ago`, style: 'warning' } }
 	}
 
@@ -95,7 +95,7 @@ const PlantCard = ({ data, fetchPlants, reRender }) => {
 					</div>
 					<img src={`assets/plant${data.icon}.png`} alt="plant" className="plantIcon" />
 				</div>
-				<progress color="#8ccc62" max={data.schedule} value={progressValue(data)} aria-valuemax={data.schedule} aria-valuemin="0" aria-valuenow={data.schedule - daysUntil(data)} tabIndex="-1"></progress>
+				<progress color="#8ccc62" max={data.schedule} value={daysUntil(data)+1} aria-valuemax={data.schedule} aria-valuemin="0" aria-valuenow={data.schedule - daysUntil(data)} tabIndex="-1" className={`prog${progressData.style}`}></progress>
 				<p className="progressText">{progressData.message}</p>
 
 			</div>

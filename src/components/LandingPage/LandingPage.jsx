@@ -18,8 +18,9 @@ class Dashboard extends Component {
     render() {
       
         return (
-            <div className='container'>
-                <h1>Landing Page</h1>
+            <div className='container LandingPage'>
+                <h1>Garden View</h1>
+                <p>GardenView is a website created by a group of 4 students at the Norwegian University of Science and Technology using the react library.</p>
             </div>
         );
     }

@@ -1,6 +1,5 @@
 .miniprofilecontainer {
     background-color: white;
-    width: 40%;
     padding: 2em;
 }
 .miniprofilecontainer h3{
@@ -25,4 +24,14 @@
 .miniprofilecontainer button:hover {
     color: white;
     background-color: green;
+}
+
+@media screen and (max-width: 520px) {
+    .profileContainer{
+        width: 92%;
+    }
+    .miniprofilecontainer {
+        width: 100%;       
+    }
+
 }

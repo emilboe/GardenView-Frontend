@@ -11,7 +11,7 @@
  
 .box {
   position: relative;
-  width: 70%;
+  width: 48%;
   margin: 0 auto;
   height: auto;
   max-height: 90vh;
@@ -25,23 +25,39 @@
  
  .box button{
   margin: 0;
+  margin-top: 1.9rem;
+  width: 100%;
  }
 
 .close-icon {
   content: 'x';
   cursor: pointer;
   position: fixed;
-  right: calc(15% - 11px);
+  right: calc(26% - 12px);
   top: calc(100vh - 85vh - 33px);
-  background: #74ffca;
+  background: white;
   width: 25px;
   height: 25px;
   border-radius: 50%;
   line-height: 20px;
   text-align: center;
-  border: 1px solid rgb(255, 255, 255);
+  border: 1px solid rgb(100, 100, 100);
   font-size: 20px;
 }
 .popupInfo{
   margin-bottom: 1rem;  
+}
+
+@media screen and (max-width: 520px) {
+  .box{
+    width: 92%;
+    margin-top: 5vh;
+  }
+  .close-icon{
+        right: 1%;
+        top: 3.5vh;
+  }
+  .popupContent{
+    flex-direction: column;
+  }
 }

@@ -1,0 +1,24 @@
+.sidebar{
+	position: fixed;
+	height:calc(100vh - 80px);
+	width: 85vw;
+	background-color: #f1f1f1;
+	top: 80px;
+	right: 0;
+	z-index: 90;
+	padding: 1rem;
+}
+.sidebar ul{
+	display: flex;
+	flex-direction: column;
+}
+
+.sidebar ul li{
+	margin-bottom: 0.5rem;
+	font-size: 1.3rem;
+	border-bottom: 1px solid #333;
+}
+
+.sidebar ul li .link-text{
+	font-size: 1.5rem;
+}

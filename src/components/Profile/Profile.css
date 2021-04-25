@@ -1,8 +1,14 @@
 
 .profileContainer {
-    width: 70%;
     margin: auto;
+    width: 40%;
 }
 .profileHeader p {
     margin-top: -1em;
+}
+
+@media screen and (max-width: 520px) {
+    .profileContainer{
+        width: 92%;
+    }
 }

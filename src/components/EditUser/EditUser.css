@@ -1,31 +1,22 @@
-.indented {
-    background-color: rgb(214, 214, 214);
-    border-radius: 1em;
-    padding: 1em;
-    margin: 1em 0;
-    list-style: none;
-    width: 50%;
-}
 .editForm {
-    background-color: rgb(214, 214, 214);
     border-radius: 1em;
-    padding: 1em;
-    margin: 1em 0;
     width: 50%;
     display: flex;
     flex-direction: column;
 }
 .editForm input, textarea, select {
-    background-color: rgb(226, 252, 255);
     border-radius: 0.2em;
     border: none;
     padding: 1em;
     margin: 0.2em 0;
-    width: 50%;
 }
 .editForm input[type="submit"] {
-    color: black;
-    background-color: bisque;
+    margin-top: 1.5rem;
+    text-transform: uppercase;
+    padding: 1.1em 1.6em;
+    border: 1px solid green;
+    color: green;
+    background-color: white;
     cursor: pointer;
 }
 .editForm input[type="submit"]:hover {

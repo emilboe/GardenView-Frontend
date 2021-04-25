@@ -16,8 +16,7 @@
 }
 /* Table Styling */
 :root {
-    --rain: rgb(2, 54, 61);
-    --subtle: rgb(22, 184, 149);
+    --rain: #367033;
 }
 .centerText {
     text-align: center;
@@ -28,35 +27,38 @@
 table {
     width: 100%;
     font-size: 120%;
+    border-collapse: collapse;
 }
 .form-btn {
-    line-height: 1;
-    display: inline-block;
-    font-size: 1.1rem;
-    text-decoration: none;
-    border-radius: 5px;
-    border: none;
-    color: #fff;
-    padding: 8px;
-    background-color: var(--subtle);
+    text-transform: uppercase;
+    margin: 0 1.2rem;
+    padding: 0.4em .8em;
+    border: 1px solid green;
+    color: green;
+    background-color: white;
 }
 
 .form-btn:hover {
     color: white;
-    background-color: rgb(9, 188, 201);
+    background-color: green;
 }
 th {
     background-color: var(--rain);
     text-align: left;
-    padding: 0.4em;
+    padding: 0.6rem;
     color: white;
 }
-th:nth-child(even) {
-    background-color: rgb(5, 80, 90);
-}
 td {
-    padding: 0.4em;
+    padding: 0.6rem;
 }
 tr:nth-child(even) {
     background-color: rgb(223, 223, 223);
+}
+
+@media screen and (max-width: 520px) {
+  .userlistContainer{
+    overflow-x: scroll;
+    font-size: 
+  }
+
 }

@@ -52,7 +52,7 @@ class Login extends Component {
             return (<Redirect to={this.state.redirect} />);
 
         return (
-            <div className="container">
+            <div className="login_container">
                 <h1>Log in</h1> 
                 {this.context.isAuth && <button onClick={this.handleLogOut}>Log out</button>}
                 {!this.context.isAuth &&
