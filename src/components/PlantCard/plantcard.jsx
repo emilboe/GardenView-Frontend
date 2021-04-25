@@ -1,4 +1,5 @@
 import './PlantCard.css';
+import { Link, Redirect, Route, useHistory } from "react-router-dom";
 import React, { useState } from 'react';
 import moment from 'moment';
 import Popup from '../Popup/Popup';
@@ -8,11 +9,15 @@ import { getUser } from '../../helpers/storage';
 
 
 
-const PlantCard = ({ data, fetchPlants, reRender }) => {
+const PlantCard = ({ data, fetchPlants, reRender, urlChange }) => {
 	const [isOpen, setIsOpen] = useState(false);
+	const [redirect, setRedirect] = useState(false);
+	let history = useHistory()
 	const togglePopup = () => {
 		setIsOpen(!isOpen);
-		console.log('popoup!!!')
+		// console.log('yeehaw')
+		// if (isOpen) urlChange()
+		// console.log('popoup!!!')
 	}
 	const killThisPlant = (id) => {
 		try {
@@ -78,12 +83,15 @@ const PlantCard = ({ data, fetchPlants, reRender }) => {
 	}
 	const user = getUser()
 	const progressData = consistencyCheck(data)
-	console.log('prog', progressData)
+	// console.log('prog', progressData)
 
 	return (
+
 		<>
+			{/* <Link to={`/gardenview/${data._id}`}> */}
+
 			<div className={`wrapper ${progressData.style}`} onClick={togglePopup}>
-				{user && user.role === 'manager' && <img src="assets/ell.svg" className="ellipse" alt="" />}
+				{/* {user && user.role === 'manager' && <img src="assets/ell.svg" className="ellipse" alt="" />} */}
 
 				<div className="hDiv">
 					<div className="infoBox">
@@ -95,15 +103,19 @@ const PlantCard = ({ data, fetchPlants, reRender }) => {
 					</div>
 					<img src={`assets/plant${data.icon}.png`} alt="plant" className="plantIcon" />
 				</div>
-				<progress color="#8ccc62" max={data.schedule} value={daysUntil(data)+1} aria-valuemax={data.schedule} aria-valuemin="0" aria-valuenow={data.schedule - daysUntil(data)} tabIndex="-1" className={`prog${progressData.style}`}></progress>
+				<progress color="#8ccc62" max={data.schedule} value={daysUntil(data) + 1} aria-valuemax={data.schedule} aria-valuemin="0" aria-valuenow={data.schedule - daysUntil(data)} tabIndex="-1" className={`prog${progressData.style}`}></progress>
 				<p className="progressText">{progressData.message}</p>
 
 			</div>
 			{isOpen &&
 				<Popup
-					content={<PopupData info={data} kill={killThisPlant} water={waterThisPlant} fert={fertilizeThisPlant} edit={editThisPlant}/>}
+					content={<PopupData info={data} kill={killThisPlant} water={waterThisPlant} fert={fertilizeThisPlant} edit={editThisPlant} />}
 					handleClose={togglePopup}
 				/>}
+			{isOpen && <Redirect to={`/gardenview/${data._id}`} />}
+			{!isOpen && <Redirect to={`/gardenview`} />}
+
+			 {/* </Link> */}
 		</>
 	)
 }

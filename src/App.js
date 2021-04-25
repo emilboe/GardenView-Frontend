@@ -21,6 +21,7 @@ import withUsersFetch from './components/hoc/UsersHoc';
 import Dashboard from './components/Dashboard/Dashboard';
 import GardenView from './components/GardenView/GardenView';
 import LandingPage from './components/LandingPage/LandingPage';
+import PopupData from './components/PopupData/PopupData';
 
 const INITIAL_STATE = {
     firstName: '',
@@ -67,6 +68,9 @@ class App extends Component {
                                 </Route>
                                 <Route path='/profile'>
                                     <Profile />
+                                </Route>
+                                <Route path="/gardenview/:plantid">
+                                    <PopupData />
                                 </Route>
                                 <PrivateRoute>
                                     <ManagerRoute exact path="/dashboard">

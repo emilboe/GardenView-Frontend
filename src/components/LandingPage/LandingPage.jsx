@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-import CustomSelect from '../CustomSelect/';
 import PlantCard from '../PlantCard/plantcard.jsx';
 // import plants from './plants.json'
 import { fetchPlants } from '../../api/plants';

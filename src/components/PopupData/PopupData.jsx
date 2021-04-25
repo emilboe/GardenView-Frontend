@@ -19,6 +19,7 @@ class PopupData extends Component {
     }
     togglePopup() {
         this.setState({ formIsOpen: !this.state.formIsOpen })
+        // this.props.history.push('/gardenview')
     }
 
     handleInputChange = (event) => {
@@ -63,10 +64,17 @@ class PopupData extends Component {
         const convertDate = (time) => {
             return JSON.stringify(moment(time).format('dddd DD/MM hh:mm:ss')).replace(/\"/g, "");
         }
-        const user = getUser()
         const { plant_name, bio, location, _id, icon, last_fertilizing_date, last_watering_date, schedule, watered_by, fertilized_by } = this.props.info
         // console.log(this.props.info)
-
+        const user = getUser()
+        var manager = false;
+        var gardener = false;
+        var bossman = false;
+        if (user) {
+            manager = user.role === 'manager'
+            gardener = user.role === 'gardener'
+            bossman = manager || gardener;
+        }
         return (
             <>
                 <div class="popupInfo">
@@ -105,15 +113,15 @@ class PopupData extends Component {
                         }
 
                         <div className="rightImg">
-                            <img src={`assets/plant${icon}.png`} alt="plant" />
+                            <img src={`../assets/plant${icon}.png`} alt="plant" />
                         </div>
                     </div>
-                    {user && user.role === 'manager' &&
+                    {bossman &&
                         <div className="buttons">
-                            <button className="delete" onClick={() => this.props.kill(_id)}>Delete Plant</button>
-                            <button className="water" onClick={() => this.props.water(_id)}>Water Plant</button>
-                            <button className="fertilize" onClick={() => this.props.fert(_id)}>Fertilize Plant</button>
-                            <button onClick={this.togglePopup.bind(this)}>Edit Plant</button>
+                            {manager && <button className="delete" onClick={() => this.props.kill(_id)}>Delete Plant</button>}
+                            {bossman && <button className="water" onClick={() => this.props.water(_id)}>Water Plant</button>}
+                            {bossman && <button className="fertilize" onClick={() => this.props.fert(_id)}>Fertilize Plant</button>}
+                            {bossman && <button onClick={this.togglePopup.bind(this)}>Edit Plant</button>}
                         </div>
                     }
                 </div>

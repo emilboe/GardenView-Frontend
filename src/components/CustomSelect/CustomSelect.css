@@ -37,6 +37,8 @@ label{
   background-position: right .7em top 50%, 0 0;
   /* icon size, then gradient */
   background-size: .65em auto, 100%;
+  
+  cursor: pointer;
 }
 /* Hide arrow icon in IE browsers */
 .select-css::-ms-expand {
