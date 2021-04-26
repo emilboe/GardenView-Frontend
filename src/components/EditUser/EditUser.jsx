@@ -78,7 +78,7 @@ class EditUser extends Component {
                     <div className="popupContent">
 
                         <>
-                            <form className="editForm" onSubmit={(e) => this.handleSubmit(e, _id)}>
+                            <form className="editForm w100" onSubmit={(e) => this.handleSubmit(e, _id)}>
                                 <label>First Name</label>
                                 <input type="text" name="firstName" value={this.state.firstName} onChange={this.handleInputChange} />
                                 <label>Last Name</label>

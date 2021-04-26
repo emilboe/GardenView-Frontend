@@ -15,3 +15,10 @@ body {
   max-width: 100%;
   max-height: 100%;
 }
+
+/* alt styling
+body {
+    background-color: #eeeeee;
+    background-image: linear-gradient(hsl(169deg 36% 92%), #ffffff00 40%);
+}
+*/

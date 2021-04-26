@@ -86,7 +86,7 @@ const PlantCard = ({ data, fetchPlants, reRender, urlChange }) => {
 				console.log('hsitory', history)
 				history.push(`/gardenview/${data._id}`)
 			}
-			}>
+			} tabIndex={0}>
 				{/* {user && user.role === 'manager' && <img src="assets/ell.svg" className="ellipse" alt="" />} */}
 
 				<div className="hDiv">

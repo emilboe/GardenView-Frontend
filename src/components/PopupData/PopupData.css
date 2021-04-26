@@ -78,13 +78,19 @@
 .water:hover {
     background-color: rgb(11, 130, 167);
 }
+.w100{
+    width: 100%;
+}
 
 @media screen and (max-width: 520px) {
     .indented{
-    width: 100%;
-  }
-  .rightImg{
-    width: 100%;
-  }
-
+        width: 100%;
+    }
+    .rightImg{
+        width: 100%;
+        order: -1;
+    }
+    .editForm{
+        width: 100%;
+    }
 }

@@ -63,3 +63,13 @@
 .water:hover {
     background-color: rgb(11, 130, 167);
 }
+
+@media screen and (max-width: 520px) {
+    
+    .editForm{
+        width: 100%;
+    }
+}
+
+
+
