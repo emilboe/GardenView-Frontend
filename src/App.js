@@ -22,6 +22,8 @@ import Dashboard from './components/Dashboard/Dashboard';
 import GardenView from './components/GardenView/GardenView';
 import LandingPage from './components/LandingPage/LandingPage';
 import PopupData from './components/PopupData/PopupData';
+import { fetchPlants } from './api/plants';
+import Popup from './components/Popup/Popup';
 
 const INITIAL_STATE = {
     firstName: '',
@@ -33,6 +35,7 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = getUser() || INITIAL_STATE;
+        this.getPlants()
     }
 
     handleLoginSuccess = () => {
@@ -43,6 +46,29 @@ class App extends Component {
     handleLogoutSuccess = () => {
         console.log('you are logged out!')
         this.setState(INITIAL_STATE)
+    }
+    backToGarden = () => {
+        console.log('go bakc pls')
+    }
+    async getPlants() {
+        const res = await fetchPlants();
+        console.log('Plants have been fetched', res.data);
+        if (res.error) {
+            this.setState({ error: res.error });
+        }
+        else {
+
+            this.setState({ plants: res.data, isFetching: false, error: null });
+
+            // var bestPlant
+            // res.data.map(item => {
+            //     if (item._id === this.props.match.params.id) bestPlant = item
+            // })
+            // console.log('bestplant', bestPlant)
+            // console.log('state of the app', this.state)
+
+            // this.handleSortChange('Time until next watering')
+        }
     }
 
     render() {
@@ -63,14 +89,25 @@ class App extends Component {
                                 <Route path='/register'>
                                     <RegisterForm />
                                 </Route>
-                                <Route path='/gardenview'>
+                                <Route exact path='/gardenview'>
                                     <GardenView isAuth={isAuth} user={this.state} />
                                 </Route>
+                                <Route exact path="/gardenview"
+                                    render={(props) => (
+                                        <GardenView isAuth={isAuth} user={this.state} {...props} />
+                                    )} />
+                                <Route path="/gardenview/:id"
+                                    render={(props) => (
+                                        <>
+                                            <GardenView isAuth={isAuth} user={this.state} />
+                                            <Popup
+                                                content={<PopupData {...props}  plants={this.state.plants} goBack={this.backToGarden} />}
+                                                redirect='/gardenview'
+                                            />
+                                        </>
+                                    )} />
                                 <Route path='/profile'>
                                     <Profile />
-                                </Route>
-                                <Route path="/gardenview/:plantid">
-                                    <PopupData />
                                 </Route>
                                 <PrivateRoute>
                                     <ManagerRoute exact path="/dashboard">

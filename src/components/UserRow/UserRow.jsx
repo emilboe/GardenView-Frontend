@@ -16,18 +16,19 @@ class UserRow extends Component {
     }
     toggleEdit() {
         this.setState({ editIsOpen: !this.state.editIsOpen })
+        console.log('edit toggled')
     }
 
-	killThisUser = id => {
-		try {
+    killThisUser = id => {
+        try {
             console.log('kill', id)
-			// killPlant(id)
-			// fetchPlants()
-			// reRender()
-		} catch (err) {
-			console.log('Nah, cant kill');
-		}
-	}
+            // killPlant(id)
+            // fetchPlants()
+            // reRender()
+        } catch (err) {
+            console.log('Nah, cant kill');
+        }
+    }
 
     render() {
 
@@ -54,8 +55,9 @@ class UserRow extends Component {
                 {
                     manager && editIsOpen &&
                     <Popup
-                        content={<EditUser info={user} kill={this.killThisUser}/>}
-                        handleClose={() => this.toggleEdit()}
+                        content={<EditUser info={user} kill={this.killThisUser} />}
+                        handleClose={this.toggleEdit.bind(this)}
+                        redirect='none'
                     />
                 }
             </>

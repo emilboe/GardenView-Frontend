@@ -99,13 +99,14 @@ class Dashboard extends Component {
                             <Popup
                                 content={<AddPlant fetchPlants={this.getPlants.bind(this)} />}
                                 handleClose={() => this.togglePopup()}
+                                redirect='none'
                             />}
                         {/* {manager && <Link to="/addPlant"><button>Add plant</button></Link>} */}
 
                         <CustomSelect options={userSorts} sortUpdate={this.handleSortChange} />
                     </div>
                     <div className="plantView">
-                        {data && data.length > 0 && data.map((item) => <PlantCard fetchPlants={this.getPlants.bind(this)} reRender={this.render} urlChange={this.redirectUrl} data={item} key={item._id} />)}
+                        {data && data.length > 0 && data.map((item) => <PlantCard {...this.props} fetchPlants={this.getPlants.bind(this)} reRender={this.render} urlChange={this.redirectUrl} data={item} key={item._id} />)}
                     </div>
                 </div>
             </div>

@@ -1,21 +1,29 @@
 import React, { Component } from 'react';
 import moment from 'moment';
-import { Redirect } from "react-router-dom";
-import { editPlant } from '../../api/plants';
+import { Redirect, useParams } from "react-router-dom";
+import { fetchPlants, killPlant, waterPlant, fertPlant, editPlant } from '../../api/plants';
 import { getUser } from '../../helpers/storage';
 import './PopupData.css'
+import plantIcon1 from '../../assets/plant1.png'
+import plantIcon2 from '../../assets/plant2.png'
+import plantIcon3 from '../../assets/plant3.png'
+import plantIcon4 from '../../assets/plant4.png'
 
 
 class PopupData extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { formIsOpen: false, bio: '', location: '', schedule: '', icon: '', plant_name: '' };
+        this.state = { formIsOpen: false, bio: '', location: '', schedule: '', icon: '', plant_name: '', user: getUser()};
         this.form = React.createRef();
+        console.log('popupdata props:', this.props)
+        
+
     }
     componentDidMount() {
-        // console.log('yeehaw', this.props.info)
-        this.setState(this.props.info)
+        this.getPlants()
+        // console.log('yeehaw', this.props)
+        // this.setState(this.props.info)
     }
     togglePopup() {
         this.setState({ formIsOpen: !this.state.formIsOpen })
@@ -56,17 +64,103 @@ class PopupData extends Component {
             this.setState({ error: "You didn't enter anything..." });
         }
     }
+    killThisPlant = (id) => {
+        try {
+            killPlant(id)
+        } catch (err) {
+            console.log('Nah, cant kill');
+        }
+    }
+    waterThisPlant = (id) => {
+        try {
+            // console.log(id, user.firstName)
+            waterPlant(id, this.user.firstName)
+        } catch (err) {
+            console.log('Nah, cant water');
+        }
+    }
+    fertilizeThisPlant = (id) => {
+        try {
+            console.log(id, 'fertilized pog')
+            fertPlant(id, this.user.firstName)
+        } catch (err) {
+            console.log('Nah, cant fert');
+        }
+    }
+    editThisPlant = (id, formData) => {
+        try {
+            console.log(id, 'fertilized pog')
+            editPlant(id, formData)
+        } catch (err) {
+            console.log('Nah, cant fert');
+        }
+    }
+
+    async getPlants() {
+        const res = await fetchPlants();
+        console.log('Plants have been fetched in popupdata', res.data);
+        if (res.error) {
+            return this.setState({ error: res.error });
+        }
+        else {
+
+            this.setState({ plants: res.data, isFetching: false, error: null });
+
+            // var bestPlant
+            // res.data.map(item => {
+            //     if (item._id === this.props.match.params.id) bestPlant = item
+            // })
+            // console.log('bestplant', bestPlant)
+
+            // this.handleSortChange('Time until next watering')
+        }
+    }
+
+    getPlantIcon = (n) => {
+        // console.log('we out here gttin planticon', n)
+        var planticon;
+        switch (n) {
+            case '1':
+                planticon = plantIcon1
+                break;
+            case '2':
+                planticon = plantIcon2
+                break;
+            case '3':
+                planticon = plantIcon3
+                break;
+            case '4':
+                planticon = plantIcon4
+                break;
+        }
+        return planticon;
+    }
 
     render() {
-
+        console.log('popupdata state', this.state)
+        if (!this.state.plants) {
+            console.log('poppstate hasnt fetched yet')
+            return (
+                <h1>Loading plant...</h1>
+            )
+        }
+        const { match: { params } } = this.props;
+        console.log('id', params.id)
         if (this.state.redirect)
             return (<h1>Plant added!</h1>);
         const convertDate = (time) => {
             return JSON.stringify(moment(time).format('dddd DD/MM hh:mm:ss')).replace(/\"/g, "");
         }
-        const { plant_name, bio, location, _id, icon, last_fertilizing_date, last_watering_date, schedule, watered_by, fertilized_by } = this.props.info
-        // console.log(this.props.info)
-        const user = getUser()
+
+        var bestPlant = {}
+        this.state.plants.map(plant => {
+            if (plant._id === this.props.match.params.id) bestPlant = plant;
+        })
+
+        const { plant_name, bio, location, _id, icon, last_fertilizing_date, last_watering_date, schedule, watered_by, fertilized_by } = bestPlant
+        // console.log('propplants: ', this.props.plants)
+        console.log('bestplant: ', bestPlant)
+        const user = this.state.user
         var manager = false;
         var gardener = false;
         var bossman = false;
@@ -113,7 +207,7 @@ class PopupData extends Component {
                         }
 
                         <div className="rightImg">
-                            <img src={`../assets/plant${icon}.png`} alt="plant" />
+                        <img src={this.getPlantIcon(icon)} alt="plant" />
                         </div>
                     </div>
                     {bossman &&

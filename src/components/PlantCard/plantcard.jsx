@@ -6,6 +6,14 @@ import Popup from '../Popup/Popup';
 import PopupData from '../PopupData/PopupData';
 import { killPlant, waterPlant, fertPlant, editPlant } from '../../api/plants';
 import { getUser } from '../../helpers/storage';
+import locationIcon from '../../assets/location.svg'
+import personIcon from '../../assets/person.svg'
+import waterIcon from '../../assets/watercan.svg'
+import fertIcon from '../../assets/fertilizer.svg'
+import plantIcon1 from '../../assets/plant1.png'
+import plantIcon2 from '../../assets/plant2.png'
+import plantIcon3 from '../../assets/plant3.png'
+import plantIcon4 from '../../assets/plant4.png'
 
 
 
@@ -14,49 +22,11 @@ const PlantCard = ({ data, fetchPlants, reRender, urlChange }) => {
 	const [redirect, setRedirect] = useState(false);
 	let history = useHistory()
 	const togglePopup = () => {
+		// setRedirect(true)
 		setIsOpen(!isOpen);
 		// console.log('yeehaw')
 		// if (isOpen) urlChange()
 		// console.log('popoup!!!')
-	}
-	const killThisPlant = (id) => {
-		try {
-			killPlant(id)
-			fetchPlants()
-			reRender()
-		} catch (err) {
-			console.log('Nah, cant kill');
-		}
-	}
-	const waterThisPlant = (id) => {
-		try {
-			// console.log(id, user.firstName)
-			waterPlant(id, user.firstName)
-			fetchPlants()
-			reRender()
-		} catch (err) {
-			console.log('Nah, cant water');
-		}
-	}
-	const fertilizeThisPlant = (id) => {
-		try {
-			console.log(id, 'fertilized pog')
-			fertPlant(id, user.firstName)
-			fetchPlants()
-			reRender()
-		} catch (err) {
-			console.log('Nah, cant fert');
-		}
-	}
-	const editThisPlant = (id, formData) => {
-		try {
-			console.log(id, 'fertilized pog')
-			editPlant(id, formData)
-			fetchPlants()
-			reRender()
-		} catch (err) {
-			console.log('Nah, cant fert');
-		}
 	}
 
 	const convertDate = (data) => {
@@ -78,6 +48,25 @@ const PlantCard = ({ data, fetchPlants, reRender, urlChange }) => {
 		else if (dataIn < 0) { return { message: `should've been watered ${(dataIn * -1)} days ago`, style: 'warning' } }
 	}
 
+	const getPlantIcon = (n) => {
+		// console.log('we out here gttin planticon', n)
+		var planticon;
+		switch (n) {
+			case '1':
+				planticon = plantIcon1
+				break;
+			case '2':
+				planticon = plantIcon2
+				break;
+			case '3':
+				planticon = plantIcon3
+				break;
+			case '4':
+				planticon = plantIcon4
+				break;
+		}
+		return planticon;
+	}
 	const progressValue = (data) => {
 		return (data.schedule - daysUntil(data));
 	}
@@ -85,37 +74,45 @@ const PlantCard = ({ data, fetchPlants, reRender, urlChange }) => {
 	const progressData = consistencyCheck(data)
 	// console.log('prog', progressData)
 
+	if (redirect) {
+		// <Redirect to={`/gardenview/${data._id}`} />
+	}
 	return (
 
 		<>
 			{/* <Link to={`/gardenview/${data._id}`}> */}
 
-			<div className={`wrapper ${progressData.style}`} onClick={togglePopup}>
+			<div className={`wrapper ${progressData.style}`} onClick={() => {
+				console.log('hsitory', history)
+				history.push(`/gardenview/${data._id}`)
+			}
+			}>
 				{/* {user && user.role === 'manager' && <img src="assets/ell.svg" className="ellipse" alt="" />} */}
 
 				<div className="hDiv">
 					<div className="infoBox">
 						<p className="name">{data.plant_name}</p>
-						<p className="extra-info"><img src="assets/location.svg" className="textIcon" alt="location icon" />{data.location}</p>
-						<p className="extra-info"><img src="assets/person.svg" className="textIcon" alt="person icon" />{data.watered_by}</p>
-						<p className="extra-info"><img src="assets/watercan.svg" className="textIcon" alt="watering icon" />{convertDate(data.last_watering_date)}</p>
-						<p className="extra-info"><img src="assets/fertilizer.svg" className="textIcon" alt="watering icon" />{convertDate(data.last_fertilizing_date)}</p>
+						<p className="extra-info"><img src={locationIcon} className="textIcon" alt="location icon" />{data.location}</p>
+						<p className="extra-info"><img src={personIcon} className="textIcon" alt="person icon" />{data.watered_by}</p>
+						<p className="extra-info"><img src={waterIcon} className="textIcon" alt="watering icon" />{convertDate(data.last_watering_date)}</p>
+						<p className="extra-info"><img src={fertIcon} className="textIcon" alt="watering icon" />{convertDate(data.last_fertilizing_date)}</p>
 					</div>
-					<img src={`assets/plant${data.icon}.png`} alt="plant" className="plantIcon" />
+					<img src={getPlantIcon(data.icon)} alt="plant" className="plantIcon" />
+					{/* {console.log(getPlantIcon(data.icon))} */}
 				</div>
 				<progress color="#8ccc62" max={data.schedule} value={daysUntil(data) + 1} aria-valuemax={data.schedule} aria-valuemin="0" aria-valuenow={data.schedule - daysUntil(data)} tabIndex="-1" className={`prog${progressData.style}`}></progress>
 				<p className="progressText">{progressData.message}</p>
 
 			</div>
-			{isOpen &&
+			{/* {isOpen &&
 				<Popup
 					content={<PopupData info={data} kill={killThisPlant} water={waterThisPlant} fert={fertilizeThisPlant} edit={editThisPlant} />}
 					handleClose={togglePopup}
-				/>}
-			{isOpen && <Redirect to={`/gardenview/${data._id}`} />}
-			{!isOpen && <Redirect to={`/gardenview`} />}
+				/>} */}
+			{/* {isOpen && <Redirect to={`/gardenview/${data._id}`} />} */}
+			{/* {!isOpen && <Redirect to={`/gardenview`} />} */}
 
-			 {/* </Link> */}
+			{/* </Link> */}
 		</>
 	)
 }
