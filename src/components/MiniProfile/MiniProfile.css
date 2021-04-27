@@ -1,6 +1,7 @@
 .miniprofilecontainer {
     background-color: white;
     padding: 2em;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.281);
 }
 .miniprofilecontainer h3{
     font-size: medium;

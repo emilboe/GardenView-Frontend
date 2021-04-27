@@ -107,7 +107,7 @@ class Dashboard extends Component {
         const manager = role === 'manager';
         const isAuth = this.props.isAuth;
         const { isOpen, data } = this.state
-        const userSorts = ['Time until next watering', 'Plant Name', 'Location', 'Who watered']
+        const userSorts = ['Next watering', 'Plant Name', 'Location', 'Who watered']
         if (this.state.redirect) {
             return <Redirect to={this.state.redirect} />
         }
@@ -117,7 +117,7 @@ class Dashboard extends Component {
                 <div className="content-wrapper">
                     <div className="segment-header">
                         <h1 className="segment-title">Plant Overview</h1>
-                        {manager && <button onClick={() => this.togglePopup()}>Add plant</button>}
+                        {manager && <button className="loginBtn" onClick={() => this.togglePopup()}>Add plant</button>}
                         {manager && isOpen &&
                             <Popup
                                 content={<AddPlant fetchPlants={this.getPlants.bind(this)} />}
@@ -129,7 +129,7 @@ class Dashboard extends Component {
                         <CustomSelect options={userSorts} sortUpdate={this.handleSortChange} />
                     </div>
                     <div className="plantView">
-                        {data && data.length > 0 && data.map((item) => <PlantCard {...this.props} fetchPlants={this.getPlants.bind(this)} reRender={this.render} urlChange={this.redirectUrl} data={item} key={item._id} />)}
+                        {data && data.length > 0 ? data.map((item) => <PlantCard {...this.props} fetchPlants={this.getPlants.bind(this)} reRender={this.render} urlChange={this.redirectUrl} data={item} key={item._id} />): 'Plants loading...'}
                     </div>
                 </div>
             </div>

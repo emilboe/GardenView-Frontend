@@ -52,7 +52,11 @@ class Dashboard extends Component {
                     <div className="segment-header">
                         <h1 className="segment-title XLText">About the project</h1>
                     </div>
-                    <p>GardenView is a website created by a group of 4 students at the Norwegian University of Science and Technology using the react library.<br/><br/> The aims of the project is to create a usable website for taking care of your plants and we achieve this by allowing those with access to water and fertilize plants, as well as change any relevant information (such as where the plant is placed) to make sure the plants live long lives. Fint om noen andre vil skrive om denne teksten slik at vi har litt mer å si.<br/>: )</p>
+                    <p>GardenView is a website created by a group of 4 students at the Norwegian University of Science and Technology using the react library.<br/>
+                    <br/> 
+                    The aims of the project is to create a usable website for taking care of your plants and we achieve this by allowing those with access to water and fertilize plants, 
+                    as well as change any relevant information (such as where the plant is placed) to make sure the plants live long lives. 
+                    Fint om noen andre vil skrive om denne teksten slik at vi har litt mer å si.<br/>: )</p>
                 </div>
             </div>  
 

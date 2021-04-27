@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { AuthContext } from '../helpers/Auth';
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import './login.css'
 
 class Login extends Component {
@@ -21,14 +21,14 @@ class Login extends Component {
 
         //This should implement a better validation
         if (this._validate()) {
-            const {email, password} = this.state
-            const res = await this.context.login({email, password});
+            const { email, password } = this.state
+            const res = await this.context.login({ email, password });
 
-            if(res.error){
+            if (res.error) {
                 this.setState({ error: res.error })
             }
             else {
-                this.setState({ redirect: '/profile' }, ()=>{
+                this.setState({ redirect: '/profile' }, () => {
                     this.props.onLoginSuccess();
                 });
             }
@@ -53,7 +53,7 @@ class Login extends Component {
 
         return (
             <div className="login_container">
-                <h1>Log in</h1> 
+                <h1>Log in</h1>
                 {this.context.isAuth && <button onClick={this.handleLogOut}>Log out</button>}
                 {!this.context.isAuth &&
                     <form ref={this.form} onSubmit={this.handleLogIn} className="form">
@@ -66,9 +66,15 @@ class Login extends Component {
                         </label>
 
                         <button type="submit">Log in</button>
+                        <div class="loginOptions">
+                            <Link className="link-text" to="/register">Register</Link>
+                            <Link className="link-text" to="/register">Forgot Password?</Link>
+                        </div>
+
                     </form>
                 }
                 {this.state.error && <div>{this.state.error}</div>}
+
             </div>
         );
     }

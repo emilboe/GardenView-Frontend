@@ -1,3 +1,10 @@
-body{
-    background-color: #eeeeee;
+body {
+    height: 100vh;
+    background: white;
+    background: -moz-linear-gradient(0deg, rgba(255, 255, 255, 1) 50%, rgb(171, 252, 237) 100%);
+    background: -webkit-linear-gradient(0deg, rgba(255, 255, 255, 1) 50%, rgb(171, 252, 237) 100%);
+    background: linear-gradient(0deg, rgb(230, 230, 230) 50%, rgb(231, 251, 255) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#e3fff9",GradientType=1);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }

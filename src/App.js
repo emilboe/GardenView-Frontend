@@ -87,6 +87,9 @@ class App extends Component {
                                 <Route exact path='/'>
                                     <LandingPage />
                                 </Route>
+                                <Route exact path='/about'>
+                                    <LandingPage />
+                                </Route>
                                 <Route path='/login'>
                                     <Login onLoginSuccess={this.handleLoginSuccess} />
                                 </Route>

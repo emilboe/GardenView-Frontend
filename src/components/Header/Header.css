@@ -7,42 +7,42 @@ header * {
     color: black;
     font-size: 14px;
 }
-
-header nav {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-header ul {
-    text-align: right;
-    display: flex;
-    flex-direction: column-reverse;
-    display: none;
-}
-header li {
-    margin-left: 2em;
-} 
 header {
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    background-color: white;
-    height: 80px;
+    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); */
+    /* background-color: white; */
+    margin-top: 1.5em;
+    height: 3em;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0 1.5em;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.5em;
     box-sizing: border-box;
     z-index: 100;
 }
-.bg_menu{
+header nav {
+    width: 70%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20%;
+}
+
+header ul {
+    text-align: right;
+    display: flex;
+    justify-content: space-between;
+}
+header li {
+    margin-left: 1em;
+}
+.bg_menu {
     display: block;
-    height: 1.7rem!important;
+    height: 1.7rem !important;
 }
 a.link-text {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
 }
 /* 
 .link-text {
@@ -57,10 +57,21 @@ a.link-text {
 } */
 
 .link-text:hover {
-    text-decoration: underline;
-    font-style: italic;
+    border-bottom: 2px solid lightgreen;
+    color: rgb(3, 59, 14);
+    transition: all 0.2s;
 }
-
+header .loginBtn {
+    border-radius: 0.5em;
+    border: none;
+    color: white;
+    background-color: lightgreen;
+    padding: 0.3em 2em;
+    transition: all .1s;
+}
+header .loginBtn:hover {
+    background-color: rgb(63, 194, 63);
+}
 .logo {
     display: flex;
     align-items: center;
@@ -68,15 +79,25 @@ a.link-text {
 .logo img {
     height: 3em;
 }
-.logo h1 {
+.logo :is(h1, span) {
     font-weight: 700;
-    padding-left: .3em;
-    line-height:1em;
+    padding-left: 0.3em;
+    line-height: 1em;
     font-size: x-large;
     letter-spacing: 1px;
     color: limegreen;
 }
-
+.logo span {
+    margin: none;
+    color: black;
+    margin-left: -0.25em;
+}
+.mainLinks {
+    /* background-color: lightpink; */
+    display: flex;
+    justify-content: center;
+    gap: 20%;
+}
 .login-btn {
     padding: 0.3em 1em;
     border: 1px solid green;
@@ -112,10 +133,9 @@ a.link-text {
         font-size: 18px;
     }
 
-    .bg_menu{
+    .bg_menu {
         display: none;
     }
-
 }
 
 @media screen and (min-width: 800px) {

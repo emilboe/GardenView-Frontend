@@ -12,7 +12,7 @@ const MiniProfile = () => {
             <p>{email}</p>
             <h3>Role</h3> 
             <p className="capt">{role}</p>
-            <button>Edit</button>
+            <button onClick={() => alert('haha, cant do that')}>Edit</button>
         </div>
     )
 }

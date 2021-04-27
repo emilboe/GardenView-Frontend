@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { AuthContext } from '../../helpers/Auth';
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 
 class Login extends Component {
     static contextType = AuthContext;
@@ -79,6 +79,10 @@ class Login extends Component {
                         <input type="password" name="password2" value={this.state.password2} onChange={this.handleInputChange} required />
 
                         <button type="submit">Register</button>
+                        <div class="loginOptions">
+                            <Link className="link-text" to="/login">Log in</Link>
+                            <Link className="link-text" to="/register">Forgot Password?</Link>
+                        </div>
                         {this.state.error && <div>{this.state.error}</div>}
                     </form>
                 }

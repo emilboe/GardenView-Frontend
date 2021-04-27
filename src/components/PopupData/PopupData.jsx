@@ -22,35 +22,6 @@ class PopupData extends Component {
         this.getPlants()
         // this.setState(this.props.info)
     }
-    componentDidUpdate() {
-        // console.log('comp did update')
-        if (!this.state.formIsOpen) {
-            const waterBtn = document.getElementById('waterBtn')
-            if (waterBtn) {
-                // console.log('waterBtn exists')
-                waterBtn.focus()
-            }
-        }
-    }
-    togglePopup() {
-        this.setState({ formIsOpen: !this.state.formIsOpen })
-        // 
-        // setTimeout(() => {
-        //     const waterBtn = document.getElementById('waterBtn')
-        //     if (waterBtn) {
-        //         // console.log('waterBtn exists')
-        //         waterBtn.focus()
-        //     }
-        // }, 2000);
-
-        // focus input when clicking edit IS FUCKED
-        // const firstInput = document.getElementById('firstInput')
-        // if (firstInput) {
-        //     console.log('firstInput exists')
-        //     firstInput.focus()
-        // }
-        // this.props.history.push('/gardenview')
-    }
     setBestplant() {
         this.state.plants.map(plant => {
             if (plant._id === this.props.match.params.id) {
@@ -176,6 +147,40 @@ class PopupData extends Component {
         return planticon;
     }
 
+    togglePopup() {
+        this.setState({ formIsOpen: !this.state.formIsOpen })
+
+
+        // 
+        // setTimeout(() => {
+        //     const waterBtn = document.getElementById('waterBtn')
+        //     if (waterBtn) {
+        //         // console.log('waterBtn exists')
+        //         waterBtn.focus()
+        //     }
+        // }, 2000);
+
+        // focus input when clicking edit IS FUCKED
+        // this.props.history.push('/gardenview')
+    }
+
+    componentDidUpdate() {
+        // console.log('comp did update')
+        if (!this.state.formIsOpen) {
+            const waterBtn = document.getElementById('waterBtn')
+            if (waterBtn) {
+                // console.log('waterBtn exists')
+                waterBtn.focus()
+            }
+        }
+
+        // const firstInput = document.getElementById('firstInput')
+        // if (firstInput) {
+        //     console.log('firstInput exists')
+        //     firstInput.focus()
+        // }
+    }
+
     render() {
         console.log('popupdata state', this.state)
         if (!this.state.plants) {
@@ -224,21 +229,23 @@ class PopupData extends Component {
                             </ul>
                         ) : (
                             <>
-                                <form className="editForm" onSubmit={(e) => this.handleSubmit(e, _id)}>
-                                    <h1>Edit Plant</h1>
-                                    <label>Plant Name</label>
-                                    <input type="text" name="plant_name" id="firstInput" value={plant_name} onChange={this.handleInputChange} />
-                                    <label>Icon</label>
-                                    <input type="number" min="1" max="4" name="icon" value={icon} onChange={this.handleInputChange} />
-                                    <label>Bio</label>
-                                    <textarea type="text" name="bio" value={bio} onChange={this.handleInputChange} />
-                                    <label>Location</label>
-                                    <input type="text" name="location" value={location} onChange={this.handleInputChange} />
-                                    <label>Schedule</label>
-                                    <input type="number" name="schedule" value={schedule} onChange={this.handleInputChange} />
-                                    <input className="submitBtn" type="submit" value="Save Changes" />
-                                    <span>{this.state.error && this.state.error}</span>
-                                </form>
+                                {/* <dialog open > */}
+                                    <form  onSubmit={(e) => this.handleSubmit(e, _id)}>
+                                        <h1>Edit Plant</h1>
+                                        <label>Plant Name</label>
+                                        <input autofocus='autofocus' type="text" name="plant_name" id="firstInput" value={plant_name} onChange={this.handleInputChange} />
+                                        <label>Icon</label>
+                                        <input type="number" min="1" max="4" name="icon" value={icon} onChange={this.handleInputChange} />
+                                        <label>Bio</label>
+                                        <textarea type="text" name="bio" value={bio} onChange={this.handleInputChange} />
+                                        <label>Location</label>
+                                        <input type="text" name="location" value={location} onChange={this.handleInputChange} />
+                                        <label>Schedule</label>
+                                        <input type="number" name="schedule" value={schedule} onChange={this.handleInputChange} />
+                                        <input className="submitBtn" type="submit" value="Save Changes" />
+                                        <span>{this.state.error && this.state.error}</span>
+                                    </form>
+                                {/* </dialog> */}
                             </>
 
                         )
