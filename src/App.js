@@ -50,6 +50,10 @@ class App extends Component {
     backToGarden = () => {
         console.log('go bakc pls')
     }
+    upDoot = () => {
+        this.forceUpdate()
+        console.log('updooted')
+    }
     async getPlants() {
         const res = await fetchPlants();
         console.log('Plants have been fetched', res.data);
@@ -101,7 +105,7 @@ class App extends Component {
                                         <>
                                             <GardenView isAuth={isAuth} user={this.state} />
                                             <Popup
-                                                content={<PopupData {...props}  plants={this.state.plants} goBack={this.backToGarden} />}
+                                                content={<PopupData {...props} upDoot={this.upDoot} plants={this.state.plants} goBack={this.backToGarden} />}
                                                 redirect='/gardenview'
                                             />
                                         </>

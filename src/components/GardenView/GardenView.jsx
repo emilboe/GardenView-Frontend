@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from "react-router-dom";
+import moment from 'moment';
 import CustomSelect from '../CustomSelect/CustomSelect';
 import PlantCard from '../PlantCard/plantcard.jsx';
 import Popup from '../Popup/Popup';
@@ -42,27 +43,49 @@ class Dashboard extends Component {
         if (this.state.isOpen === true) window.location.reload();
         console.log('popup toggled')
     }
+    daysUntilYo = (plant) => {
+        var a = moment();
+        var b = moment(plant.last_watering_date);
+        var differnce = a.diff(b, 'days', true);
+        return (Math.floor(plant.schedule - differnce));
+    }
 
     handleSortChange = (sortString) => {
         const sortedUserList = []
         // console.log(this.state.data)
         // return
+        // not working correctly
         switch (sortString) {
             case 'Time until next watering':
                 this.state.data.sort((a, b) => {
-                    const dateA = new Date(a.last_watering_date)
-                    const dateB = new Date(b.last_watering_date)
-                    const today = new Date()
-                    const unixA = dateA.getTime()
-                    const unixB = dateB.getTime()
-                    const unixToday = today.getTime()
-                    const schedA = a.schedule * 24 * 60 * 60 * 60 * 60
-                    const schedB = b.schedule * 24 * 60 * 60 * 60 * 60
-                    const plantA = unixToday - unixA - schedA
-                    const plantB = unixToday - unixB - schedB
-                    // console.table('oof', plantA, plantB)
-                    if (plantA > plantB) return -1
+                    var aSched = this.daysUntilYo(a)
+                    var bSched = this.daysUntilYo(b)
+                    
+                    if (aSched < bSched) return -1
                     else return 1
+
+                    // const dateA = new Date(a.last_watering_date)
+                    // const dateB = new Date(b.last_watering_date)
+                    // const today = new Date()
+
+                    // const unixA = dateA.getTime()
+                    // const unixB = dateB.getTime()
+
+                    // const unixToday = today.getTime()
+
+                    // const schedA = a.schedule * 24 * 60 * 60 * 60 
+                    // const schedB = b.schedule * 24 * 60 * 60 * 60 
+
+                    // const plantA = unixToday - unixA - schedA
+                    // const plantB = unixToday - unixB - schedB
+                    // console.table('\nunixToday', unixToday)
+                    // console.table('dateA', unixA)
+                    // console.table('today - unixA', unixToday - unixA)
+                    // console.table('schedA', schedA)
+                    // console.table('today - unixA - sched :', plantA)
+                    // // console.table(a.plant_name, plantA)
+                    // if (plantA > plantB) return -1
+                    // else return 1
                 })
                 break;
             case 'Plant Name':

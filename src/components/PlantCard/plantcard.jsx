@@ -1,10 +1,7 @@
 import './PlantCard.css';
-import { Link, Redirect, Route, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import React, { useState } from 'react';
 import moment from 'moment';
-import Popup from '../Popup/Popup';
-import PopupData from '../PopupData/PopupData';
-import { killPlant, waterPlant, fertPlant, editPlant } from '../../api/plants';
 import { getUser } from '../../helpers/storage';
 import locationIcon from '../../assets/location.svg'
 import personIcon from '../../assets/person.svg'
@@ -45,7 +42,8 @@ const PlantCard = ({ data, fetchPlants, reRender, urlChange }) => {
 		const dataIn = daysUntil(data);
 		if (dataIn >= 3) { return { message: `${dataIn} days until next watering`, style: '' } }
 		if (dataIn <= 2 && dataIn > 0) { return { message: `${dataIn} days until next watering`, style: 'warning' } }
-		else if (dataIn < 0) { return { message: `should've been watered ${(dataIn * -1)} days ago`, style: 'warning' } }
+		if (dataIn === 0) { return { message: `Should be watered today!`, style: 'warning' } }
+		if (dataIn < 0) { return { message: `should've been watered ${(dataIn * -1)} days ago`, style: 'warning' } }
 	}
 
 	const getPlantIcon = (n) => {
@@ -64,11 +62,22 @@ const PlantCard = ({ data, fetchPlants, reRender, urlChange }) => {
 			case '4':
 				planticon = plantIcon4
 				break;
+			default:
+				planticon = plantIcon1
+				break;
 		}
 		return planticon;
 	}
 	const progressValue = (data) => {
 		return (data.schedule - daysUntil(data));
+	}
+	const keypress = (e) => {
+		console.log('wow u pressed key')
+		if (e.keyCode == 13) {
+			console.log('wow its enter')
+			history.push(`/gardenview/${data._id}`)
+			return false;
+		}
 	}
 	const user = getUser()
 	const progressData = consistencyCheck(data)
@@ -82,12 +91,14 @@ const PlantCard = ({ data, fetchPlants, reRender, urlChange }) => {
 		<>
 			{/* <Link to={`/gardenview/${data._id}`}> */}
 
-			<div className={`wrapper ${progressData.style}`} onClick={() => {
-				console.log('hsitory', history)
-				history.push(`/gardenview/${data._id}`)
-			}
-			} tabIndex={0}>
-				{/* {user && user.role === 'manager' && <img src="assets/ell.svg" className="ellipse" alt="" />} */}
+			<div className={`wrapper ${progressData.style}`}
+				onKeyDown={keypress}
+				onClick={() => {
+					console.log('hsitory', history)
+					history.push(`/gardenview/${data._id}`)
+				}}
+				tabIndex={0}>
+				{/* {user && user.role === 'manager' && <img src="assets /ell.svg" className="ellipse" alt="" />} */}
 
 				<div className="hDiv">
 					<div className="infoBox">
@@ -100,7 +111,16 @@ const PlantCard = ({ data, fetchPlants, reRender, urlChange }) => {
 					<img src={getPlantIcon(data.icon)} alt="plant" className="plantIcon" />
 					{/* {console.log(getPlantIcon(data.icon))} */}
 				</div>
-				<progress color="#8ccc62" max={data.schedule} value={daysUntil(data) + 1} aria-valuemax={data.schedule} aria-valuemin="0" aria-valuenow={data.schedule - daysUntil(data)} tabIndex="-1" className={`prog${progressData.style}`}></progress>
+				<progress
+					color="#8ccc62"
+					max={data.schedule}
+					value={daysUntil(data) + 1}
+					aria-valuemax={data.schedule}
+					aria-valuemin="0"
+					aria-valuenow={data.schedule - daysUntil(data)}
+					tabIndex="-1"
+					className={`prog${progressData.style}`}
+				/>
 				<p className="progressText">{progressData.message}</p>
 
 			</div>

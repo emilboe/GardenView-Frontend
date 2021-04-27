@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import moment from 'moment';
-import { Redirect, useParams } from "react-router-dom";
 import { fetchPlants, killPlant, waterPlant, fertPlant, editPlant } from '../../api/plants';
 import { getUser } from '../../helpers/storage';
 import './PopupData.css'
@@ -14,24 +13,58 @@ class PopupData extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { formIsOpen: false, bio: '', location: '', schedule: '', icon: '', plant_name: '', user: getUser()};
+        this.state = { formIsOpen: false, updated: '', inputfocus: true, bio: '', location: '', schedule: '', icon: '', plant_name: '', user: getUser() };
         this.form = React.createRef();
-        console.log('popupdata props:', this.props)
-        
+        // console.log('popupdata props:', this.props)
 
     }
     componentDidMount() {
         this.getPlants()
-        // console.log('yeehaw', this.props)
         // this.setState(this.props.info)
+    }
+    componentDidUpdate() {
+        // console.log('comp did update')
+        if (!this.state.formIsOpen) {
+            const waterBtn = document.getElementById('waterBtn')
+            if (waterBtn) {
+                // console.log('waterBtn exists')
+                waterBtn.focus()
+            }
+        }
     }
     togglePopup() {
         this.setState({ formIsOpen: !this.state.formIsOpen })
+        // 
+        // setTimeout(() => {
+        //     const waterBtn = document.getElementById('waterBtn')
+        //     if (waterBtn) {
+        //         // console.log('waterBtn exists')
+        //         waterBtn.focus()
+        //     }
+        // }, 2000);
+
+        // focus input when clicking edit IS FUCKED
+        // const firstInput = document.getElementById('firstInput')
+        // if (firstInput) {
+        //     console.log('firstInput exists')
+        //     firstInput.focus()
+        // }
         // this.props.history.push('/gardenview')
     }
-
+    setBestplant() {
+        this.state.plants.map(plant => {
+            if (plant._id === this.props.match.params.id) {
+                console.log('plant', plant)
+                this.setState(plant)
+                return false
+            }
+            return false
+        })
+    }
     handleInputChange = (event) => {
         const { name, value } = event.target;
+        console.log('name', name)
+        console.log('value', value)
         this.setState({ [name]: value });
     }
 
@@ -67,14 +100,18 @@ class PopupData extends Component {
     killThisPlant = (id) => {
         try {
             killPlant(id)
+            console.log(this.props)
+            // this.props.upDoot()
         } catch (err) {
             console.log('Nah, cant kill');
         }
     }
     waterThisPlant = (id) => {
         try {
-            // console.log(id, user.firstName)
-            waterPlant(id, this.user.firstName)
+            console.log(id, this.state.user.firstName)
+            this.props.upDoot()
+            this.setState({ last_watering_date: new Date() })
+            waterPlant(id, this.state.user.firstName)
         } catch (err) {
             console.log('Nah, cant water');
         }
@@ -82,7 +119,7 @@ class PopupData extends Component {
     fertilizeThisPlant = (id) => {
         try {
             console.log(id, 'fertilized pog')
-            fertPlant(id, this.user.firstName)
+            fertPlant(id, this.state.user.firstName)
         } catch (err) {
             console.log('Nah, cant fert');
         }
@@ -105,7 +142,7 @@ class PopupData extends Component {
         else {
 
             this.setState({ plants: res.data, isFetching: false, error: null });
-
+            this.setBestplant()
             // var bestPlant
             // res.data.map(item => {
             //     if (item._id === this.props.match.params.id) bestPlant = item
@@ -132,6 +169,9 @@ class PopupData extends Component {
             case '4':
                 planticon = plantIcon4
                 break;
+            default:
+                planticon = plantIcon1
+                break;
         }
         return planticon;
     }
@@ -152,14 +192,11 @@ class PopupData extends Component {
             return JSON.stringify(moment(time).format('dddd DD/MM hh:mm:ss')).replace(/\"/g, "");
         }
 
-        var bestPlant = {}
-        this.state.plants.map(plant => {
-            if (plant._id === this.props.match.params.id) bestPlant = plant;
-        })
 
-        const { plant_name, bio, location, _id, icon, last_fertilizing_date, last_watering_date, schedule, watered_by, fertilized_by } = bestPlant
+
+        const { plant_name, bio, location, _id, icon, last_fertilizing_date, last_watering_date, schedule, watered_by, fertilized_by } = this.state
         // console.log('propplants: ', this.props.plants)
-        console.log('bestplant: ', bestPlant)
+        console.log('state: ', this.state)
         const user = this.state.user
         var manager = false;
         var gardener = false;
@@ -169,11 +206,12 @@ class PopupData extends Component {
             gardener = user.role === 'gardener'
             bossman = manager || gardener;
         }
+
         return (
             <>
-                <div class="popupInfo">
+                <div class="popupInfo" >
                     <h1>{plant_name}</h1>
-                    <div className="popupContent">
+                    <div className="popupContent" id="currentPopup">
                         {!this.state.formIsOpen ? (
                             <ul className="indented">
                                 <li><b>Bio:</b> {bio}</li>
@@ -189,15 +227,15 @@ class PopupData extends Component {
                                 <form className="editForm" onSubmit={(e) => this.handleSubmit(e, _id)}>
                                     <h1>Edit Plant</h1>
                                     <label>Plant Name</label>
-                                    <input type="text" name="plant_name" value={this.state.plant_name} onChange={this.handleInputChange} />
+                                    <input type="text" name="plant_name" id="firstInput" value={plant_name} onChange={this.handleInputChange} />
                                     <label>Icon</label>
-                                    <input type="number" name="icon" value={this.state.icon} onChange={this.handleInputChange} />
+                                    <input type="number" min="1" max="4" name="icon" value={icon} onChange={this.handleInputChange} />
                                     <label>Bio</label>
-                                    <textarea type="text" name="bio" value={this.state.bio} onChange={this.handleInputChange} />
+                                    <textarea type="text" name="bio" value={bio} onChange={this.handleInputChange} />
                                     <label>Location</label>
-                                    <input type="text" name="location" value={this.state.location} onChange={this.handleInputChange} />
+                                    <input type="text" name="location" value={location} onChange={this.handleInputChange} />
                                     <label>Schedule</label>
-                                    <input type="number" name="schedule" value={this.state.schedule} onChange={this.handleInputChange} />
+                                    <input type="number" name="schedule" value={schedule} onChange={this.handleInputChange} />
                                     <input className="submitBtn" type="submit" value="Save Changes" />
                                     <span>{this.state.error && this.state.error}</span>
                                 </form>
@@ -207,19 +245,18 @@ class PopupData extends Component {
                         }
 
                         <div className="rightImg">
-                        <img src={this.getPlantIcon(icon)} alt="plant" />
+                            <img src={this.getPlantIcon(icon)} alt="plant" />
                         </div>
                     </div>
                     {bossman &&
                         <div className="buttons">
-                            {manager && <button className="delete" onClick={() => this.props.kill(_id)}>Delete Plant</button>}
-                            {bossman && <button className="water" onClick={() => this.props.water(_id)}>Water Plant</button>}
-                            {bossman && <button className="fertilize" onClick={() => this.props.fert(_id)}>Fertilize Plant</button>}
+                            {bossman && <button id="waterBtn" className="water" onClick={() => this.waterThisPlant(_id)}>Water Plant</button>}
+                            {bossman && <button className="fertilize" onClick={() => this.fertilizeThisPlant(_id)}>Fertilize Plant</button>}
                             {bossman && <button onClick={this.togglePopup.bind(this)}>Edit Plant</button>}
+                            {manager && <button className="delete" onClick={() => this.killThisPlant(_id)}>Delete Plant</button>}
                         </div>
                     }
                 </div>
-
             </>
         )
     }

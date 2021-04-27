@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import moment from 'moment';
-import { Redirect } from "react-router-dom";
-import { editPlant } from '../../api/plants';
 import Popup from '../Popup/Popup';
 import EditUser from '../EditUser/EditUser';
 import { getUser } from '../../helpers/storage';
