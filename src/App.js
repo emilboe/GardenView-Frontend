@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import {
     BrowserRouter as Router,
     Switch,
-    Route
+    Route,
+    Redirect
 } from "react-router-dom";
 import { AuthConsumer } from './helpers/Auth';
 import './App.css';
-import Login from './components/login';
+import Login from './components/Login/login';
 
 // Components import
 // import Test from './components/Test';
@@ -47,13 +48,7 @@ class App extends Component {
         console.log('you are logged out!')
         this.setState(INITIAL_STATE)
     }
-    backToGarden = () => {
-        console.log('go bakc pls')
-    }
-    upDoot = () => {
-        this.forceUpdate()
-        console.log('updooted')
-    }
+
     async getPlants() {
         const res = await fetchPlants();
         console.log('Plants have been fetched', res.data);
@@ -61,17 +56,8 @@ class App extends Component {
             this.setState({ error: res.error });
         }
         else {
-
+            console.log(res.data)
             this.setState({ plants: res.data, isFetching: false, error: null });
-
-            // var bestPlant
-            // res.data.map(item => {
-            //     if (item._id === this.props.match.params.id) bestPlant = item
-            // })
-            // console.log('bestplant', bestPlant)
-            // console.log('state of the app', this.state)
-
-            // this.handleSortChange('Time until next watering')
         }
     }
 
@@ -85,7 +71,7 @@ class App extends Component {
                         <main>
                             <Switch>
                                 <Route exact path='/'>
-                                    <LandingPage />
+                                    <Redirect to='/about' />
                                 </Route>
                                 <Route exact path='/about'>
                                     <LandingPage />
@@ -96,19 +82,15 @@ class App extends Component {
                                 <Route path='/register'>
                                     <RegisterForm />
                                 </Route>
-                                <Route exact path='/gardenview'>
-                                    <GardenView isAuth={isAuth} user={this.state} />
+                                <Route exact path="/gardenview">
+                                    <GardenView plants={this.state.plants} isAuth={isAuth} user={this.state} />
                                 </Route>
-                                <Route exact path="/gardenview"
-                                    render={(props) => (
-                                        <GardenView isAuth={isAuth} user={this.state} {...props} />
-                                    )} />
                                 <Route path="/gardenview/:id"
                                     render={(props) => (
                                         <>
-                                            <GardenView isAuth={isAuth} user={this.state} />
+                                            <GardenView plants={this.state.plants} isAuth={isAuth} user={this.state} />
                                             <Popup
-                                                content={<PopupData {...props} upDoot={this.upDoot} plants={this.state.plants} goBack={this.backToGarden} />}
+                                                content={<PopupData getPlants={this.getPlants.bind(this)} {...props} plants={this.state.plants} />}
                                                 redirect='/gardenview'
                                             />
                                         </>

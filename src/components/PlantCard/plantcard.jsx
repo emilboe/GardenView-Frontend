@@ -1,8 +1,7 @@
 import './PlantCard.css';
 import { useHistory } from "react-router-dom";
-import React, { useState } from 'react';
+import React from 'react';
 import moment from 'moment';
-import { getUser } from '../../helpers/storage';
 import locationIcon from '../../assets/location.svg'
 import personIcon from '../../assets/person.svg'
 import waterIcon from '../../assets/watercan.svg'
@@ -14,21 +13,12 @@ import plantIcon4 from '../../assets/plant4.png'
 
 
 
-const PlantCard = ({ data, fetchPlants, reRender, urlChange }) => {
-	const [isOpen, setIsOpen] = useState(false);
-	const [redirect, setRedirect] = useState(false);
+const PlantCard = ({ data, reRender }) => {
 	let history = useHistory()
-	const togglePopup = () => {
-		// setRedirect(true)
-		setIsOpen(!isOpen);
-		// console.log('yeehaw')
-		// if (isOpen) urlChange()
-		// console.log('popoup!!!')
-	}
 
 	const convertDate = (data) => {
 		const time = data;
-		return JSON.stringify(moment(time).format('dddd DD/MM')).replace(/\"/g, "");
+		return JSON.stringify(moment(time).format('dddd DD/MM')).replace(/"/g, "");
 	}
 
 	const daysUntil = (data) => {
@@ -68,72 +58,47 @@ const PlantCard = ({ data, fetchPlants, reRender, urlChange }) => {
 		}
 		return planticon;
 	}
-	const progressValue = (data) => {
-		return (data.schedule - daysUntil(data));
-	}
 	const keypress = (e) => {
 		console.log('wow u pressed key')
-		if (e.keyCode == 13) {
+		if (e.keyCode === 13) {
 			console.log('wow its enter')
 			history.push(`/gardenview/${data._id}`)
 			return false;
 		}
 	}
-	const user = getUser()
 	const progressData = consistencyCheck(data)
-	// console.log('prog', progressData)
 
-	if (redirect) {
-		// <Redirect to={`/gardenview/${data._id}`} />
-	}
 	return (
+		<div className={`wrapper ${progressData.style}`}
+			onKeyDown={keypress}
+			onClick={() => {
+				console.log('hsitory', history)
+				history.push(`/gardenview/${data._id}`)
+			}}
+			tabIndex={0}>
 
-		<>
-			{/* <Link to={`/gardenview/${data._id}`}> */}
-
-			<div className={`wrapper ${progressData.style}`}
-				onKeyDown={keypress}
-				onClick={() => {
-					console.log('hsitory', history)
-					history.push(`/gardenview/${data._id}`)
-				}}
-				tabIndex={0}>
-				{/* {user && user.role === 'manager' && <img src="assets /ell.svg" className="ellipse" alt="" />} */}
-
-				<div className="hDiv">
-					<div className="infoBox">
-						<p className="name">{data.plant_name}</p>
-						<p className="extra-info"><img src={locationIcon} className="textIcon" alt="location icon" />{data.location}</p>
-						<p className="extra-info"><img src={personIcon} className="textIcon" alt="person icon" />{data.watered_by}</p>
-						<p className="extra-info"><img src={waterIcon} className="textIcon" alt="watering icon" />{convertDate(data.last_watering_date)}</p>
-						<p className="extra-info"><img src={fertIcon} className="textIcon" alt="watering icon" />{convertDate(data.last_fertilizing_date)}</p>
-					</div>
-					<img src={getPlantIcon(data.icon)} alt="plant" className="plantIcon" />
-					{/* {console.log(getPlantIcon(data.icon))} */}
+			<div className="hDiv">
+				<div className="infoBox">
+					<p className="name">{data.plant_name}</p>
+					<p className="extra-info"><img src={locationIcon} className="textIcon" alt="location icon" />{data.location}</p>
+					<p className="extra-info"><img src={personIcon} className="textIcon" alt="person icon" />{data.watered_by}</p>
+					<p className="extra-info"><img src={waterIcon} className="textIcon" alt="watering icon" />{convertDate(data.last_watering_date)}</p>
+					<p className="extra-info"><img src={fertIcon} className="textIcon" alt="watering icon" />{convertDate(data.last_fertilizing_date)}</p>
 				</div>
-				<progress
-					color="#8ccc62"
-					max={data.schedule}
-					value={daysUntil(data) + 1}
-					aria-valuemax={data.schedule}
-					aria-valuemin="0"
-					aria-valuenow={data.schedule - daysUntil(data)}
-					tabIndex="-1"
-					className={`prog${progressData.style}`}
-				/>
-				<p className="progressText">{progressData.message}</p>
-
+				<img src={getPlantIcon(data.icon)} alt="plant" className="plantIcon" />
 			</div>
-			{/* {isOpen &&
-				<Popup
-					content={<PopupData info={data} kill={killThisPlant} water={waterThisPlant} fert={fertilizeThisPlant} edit={editThisPlant} />}
-					handleClose={togglePopup}
-				/>} */}
-			{/* {isOpen && <Redirect to={`/gardenview/${data._id}`} />} */}
-			{/* {!isOpen && <Redirect to={`/gardenview`} />} */}
-
-			{/* </Link> */}
-		</>
+			<progress
+				color="#8ccc62"
+				max={data.schedule}
+				value={daysUntil(data) + 1}
+				aria-valuemax={data.schedule}
+				aria-valuemin="0"
+				aria-valuenow={data.schedule - daysUntil(data)}
+				tabIndex="-1"
+				className={`prog${progressData.style}`}
+			/>
+			<p className="progressText">{progressData.message}</p>
+		</div>
 	)
 }
 

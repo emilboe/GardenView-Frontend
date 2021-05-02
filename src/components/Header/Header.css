@@ -90,6 +90,7 @@ header .loginBtn:hover {
 .logo span {
     margin: none;
     color: black;
+    /* font-weight: 500; */
     margin-left: -0.25em;
 }
 .mainLinks {

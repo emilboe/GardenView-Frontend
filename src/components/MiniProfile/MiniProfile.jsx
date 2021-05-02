@@ -1,17 +1,15 @@
 import './MiniProfile.css'
 import { getUser } from '../../helpers/storage';
-
+import person from '../../assets/happyman.jpg'
 
 const MiniProfile = () => {
-    const {email, firstName, lastName, role} = getUser()
+    const { email, firstName, lastName, role } = getUser()
     return (
         <div className="miniprofilecontainer">
-            <h3>Name</h3>
-            <p className="capt">{firstName} {lastName}</p>
-            <h3>Email</h3>
-            <p>{email}</p>
-            <h3>Role</h3> 
-            <p className="capt">{role}</p>
+            <img src={person} className="pfp" />
+            <h1 className="capt">{firstName} {lastName}</h1>
+            <p className="capt undertitle">{role}</p>
+            <p className="email">{email}</p>
             <button onClick={() => alert('haha, cant do that')}>Edit</button>
         </div>
     )

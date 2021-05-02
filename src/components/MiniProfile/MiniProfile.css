@@ -1,7 +1,12 @@
 .miniprofilecontainer {
     background-color: white;
     padding: 2em;
+    width: 50%;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.281);
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .miniprofilecontainer h3{
     font-size: medium;
@@ -10,8 +15,18 @@
     text-transform: capitalize;
 }
 .miniprofilecontainer p{
-    font-size: x-large;
+    font-size: large;
     margin-bottom: 0.8rem;
+}
+.pfp{
+    width: 70%;
+    background-color: lightgrey;
+    padding: .5em;
+    border-radius: 99em;
+}
+.undertitle{
+    color: lightseagreen;
+    margin-top: -1em;
 }
 
 .miniprofilecontainer button {

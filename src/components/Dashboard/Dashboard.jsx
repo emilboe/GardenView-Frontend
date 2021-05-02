@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Userlist from '../Userlist/Userlist';
 import CustomSelect from '../CustomSelect/CustomSelect';
-import MiniProfile from '../MiniProfile/MiniProfile';
 import './Dashboard.css'
 
 
@@ -44,11 +43,9 @@ class Dashboard extends Component {
                         <h1 className="segment-title">All Users</h1>
                         <CustomSelect options={userSorts} sortUpdate={this.handleSortChange} />
                     </div>
-                    {/* <p>Manager Dashboard</p> */}
                 </div>
                 <div className="dashboardContent">
                     <Userlist users={this.props.users} />
-                    {/* <MiniProfile />  */}
                 </div>
             </div>
         );

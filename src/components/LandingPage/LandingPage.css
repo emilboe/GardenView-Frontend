@@ -103,7 +103,7 @@ button {
   text-transform: uppercase;
   margin: 0 1.2rem;
   padding: 0.6em 1.2em;
-  border-radius: .2em;
+  border-radius: 0.2em;
   border: none;
   color: white;
   background-color: rgb(91, 214, 91);
@@ -119,6 +119,10 @@ button:hover {
 .LandingPage p {
   font-size: 1.6rem;
   margin-bottom: 0.8rem;
+}
+.screenshot {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.432) ;
+  
 }
 .LandingPage {
   display: flex;

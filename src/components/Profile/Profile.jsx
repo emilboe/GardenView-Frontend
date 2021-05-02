@@ -28,14 +28,11 @@ class Profile extends Component {
 
     render() {
         return (
-            <div className="fakebody">
-                <div className="profileContainer">
-                    <div className="profileHeader">
-                        <h1>Profile</h1>
-                        <p>Your personal Information</p>
-                    </div>
-                    <MiniProfile />
+            <div className="profileContainer">
+                <div className="profileHeader">
+                    <h1 className="segment-title">Profile</h1>
                 </div>
+                <MiniProfile />
             </div>
 
         );

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Redirect } from "react-router-dom";
 import { addPlant } from '../../api/plants';
 import { getUser } from '../../helpers/storage';
 import './AddPlant.css'

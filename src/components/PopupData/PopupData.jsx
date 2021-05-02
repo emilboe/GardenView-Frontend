@@ -13,14 +13,18 @@ class PopupData extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { formIsOpen: false, updated: '', inputfocus: true, bio: '', location: '', schedule: '', icon: '', plant_name: '', user: getUser() };
+        this.state = { formIsOpen: false, bool: false, msg: '', updated: '', inputfocus: true, bio: '', location: '', schedule: '', icon: '', plant_name: '', user: getUser() };
         this.form = React.createRef();
-        // console.log('popupdata props:', this.props)
 
     }
     componentDidMount() {
         this.getPlants()
-        // this.setState(this.props.info)
+    }
+    togState() {
+        this.getPlants()
+        this.setBestplant()
+        this.setState({ bool: !this.state.bool });
+        console.log('bool toggled')
     }
     setBestplant() {
         this.state.plants.map(plant => {
@@ -59,9 +63,6 @@ class PopupData extends Component {
             }
             else {
                 this.togglePopup()
-                // this.setState({ redirect: '/gardenview' }, () => {
-                //     // this.props.onLoginSuccess();
-                // });
             }
         }
         else {
@@ -76,31 +77,39 @@ class PopupData extends Component {
         } catch (err) {
             console.log('Nah, cant kill');
         }
+        this.props.getPlants()
     }
     waterThisPlant = (id) => {
+        console.log('id and username:', id, this.state.user.firstName)
         try {
-            console.log(id, this.state.user.firstName)
-            this.props.upDoot()
-            this.setState({ last_watering_date: new Date() })
+            // this.setState({ last_watering_date: new Date() })
             waterPlant(id, this.state.user.firstName)
+            this.setState({ msg: "Plant watered!" });
         } catch (err) {
             console.log('Nah, cant water');
+            this.setState({ msg: "watering failed..." });
         }
+        this.togState()
+        this.props.getPlants()
     }
     fertilizeThisPlant = (id) => {
         try {
             console.log(id, 'fertilized pog')
             fertPlant(id, this.state.user.firstName)
+            this.setState({ msg: "Plant fertilized!" });
         } catch (err) {
-            console.log('Nah, cant fert');
+            this.setState({ msg: "Fertilization failed" });
         }
+        this.togState()
+        this.props.getPlants()
     }
     editThisPlant = (id, formData) => {
         try {
             console.log(id, 'fertilized pog')
             editPlant(id, formData)
+            this.setState({ msg: "Plant edited!" });
         } catch (err) {
-            console.log('Nah, cant fert');
+            this.setState({ msg: "Edit failed..." });
         }
     }
 
@@ -111,16 +120,8 @@ class PopupData extends Component {
             return this.setState({ error: res.error });
         }
         else {
-
             this.setState({ plants: res.data, isFetching: false, error: null });
             this.setBestplant()
-            // var bestPlant
-            // res.data.map(item => {
-            //     if (item._id === this.props.match.params.id) bestPlant = item
-            // })
-            // console.log('bestplant', bestPlant)
-
-            // this.handleSortChange('Time until next watering')
         }
     }
 
@@ -149,19 +150,6 @@ class PopupData extends Component {
 
     togglePopup() {
         this.setState({ formIsOpen: !this.state.formIsOpen })
-
-
-        // 
-        // setTimeout(() => {
-        //     const waterBtn = document.getElementById('waterBtn')
-        //     if (waterBtn) {
-        //         // console.log('waterBtn exists')
-        //         waterBtn.focus()
-        //     }
-        // }, 2000);
-
-        // focus input when clicking edit IS FUCKED
-        // this.props.history.push('/gardenview')
     }
 
     componentDidUpdate() {
@@ -173,12 +161,6 @@ class PopupData extends Component {
                 waterBtn.focus()
             }
         }
-
-        // const firstInput = document.getElementById('firstInput')
-        // if (firstInput) {
-        //     console.log('firstInput exists')
-        //     firstInput.focus()
-        // }
     }
 
     render() {
@@ -194,14 +176,14 @@ class PopupData extends Component {
         if (this.state.redirect)
             return (<h1>Plant added!</h1>);
         const convertDate = (time) => {
-            return JSON.stringify(moment(time).format('dddd DD/MM hh:mm:ss')).replace(/\"/g, "");
+            return JSON.stringify(moment(time).format('dddd DD/MM hh:mm:ss')).replace(/"/g, "");
         }
 
 
 
         const { plant_name, bio, location, _id, icon, last_fertilizing_date, last_watering_date, schedule, watered_by, fertilized_by } = this.state
-        // console.log('propplants: ', this.props.plants)
-        console.log('state: ', this.state)
+        // console.log('state: ', this.state)
+
         const user = this.state.user
         var manager = false;
         var gardener = false;
@@ -213,58 +195,55 @@ class PopupData extends Component {
         }
 
         return (
-            <>
-                <div class="popupInfo" >
-                    <h1>{plant_name}</h1>
-                    <div className="popupContent" id="currentPopup">
-                        {!this.state.formIsOpen ? (
-                            <ul className="indented">
-                                <li><b>Bio:</b> {bio}</li>
-                                <li><b>Current Location:</b> {location}</li>
-                                <li><b>Last fertilizing date:</b> {convertDate(last_fertilizing_date)}</li>
-                                <li><b>Laste watering date:</b> {convertDate(last_watering_date)}</li>
-                                <li>Must be watered every <b>{schedule} days</b></li>
-                                <li><b>Last watered by:</b> {watered_by}</li>
-                                <li><b>Last fertilized by:</b> {fertilized_by}</li>
-                            </ul>
-                        ) : (
-                            <>
-                                {/* <dialog open > */}
-                                    <form  onSubmit={(e) => this.handleSubmit(e, _id)}>
-                                        <h1>Edit Plant</h1>
-                                        <label>Plant Name</label>
-                                        <input autofocus='autofocus' type="text" name="plant_name" id="firstInput" value={plant_name} onChange={this.handleInputChange} />
-                                        <label>Icon</label>
-                                        <input type="number" min="1" max="4" name="icon" value={icon} onChange={this.handleInputChange} />
-                                        <label>Bio</label>
-                                        <textarea type="text" name="bio" value={bio} onChange={this.handleInputChange} />
-                                        <label>Location</label>
-                                        <input type="text" name="location" value={location} onChange={this.handleInputChange} />
-                                        <label>Schedule</label>
-                                        <input type="number" name="schedule" value={schedule} onChange={this.handleInputChange} />
-                                        <input className="submitBtn" type="submit" value="Save Changes" />
-                                        <span>{this.state.error && this.state.error}</span>
-                                    </form>
-                                {/* </dialog> */}
-                            </>
+            <div class="popupInfo" >
+                <h1>{plant_name}</h1>
+                <div className="popupContent" id="currentPopup">
+                    {!this.state.formIsOpen ? (
+                        <ul className="indented">
+                            <li><b>Bio:</b> {bio}</li>
+                            <li><b>Current Location:</b> {location}</li>
+                            <li><b>Last fertilizing date:</b> {convertDate(last_fertilizing_date)}</li>
+                            <li><b>Laste watering date:</b> {convertDate(last_watering_date)}</li>
+                            <li>Must be watered every <b>{schedule} days</b></li>
+                            <li><b>Last watered by:</b> {watered_by}</li>
+                            <li><b>Last fertilized by:</b> {fertilized_by}</li>
+                        </ul>
+                    ) : (
+                        <>
+                            <form className='form' onSubmit={(e) => this.handleSubmit(e, _id)}>
+                                <h1>Edit Plant</h1>
+                                <label>Plant Name</label>
+                                <input autoFocus='autofocus' type="text" name="plant_name" id="firstInput" value={plant_name} onChange={this.handleInputChange} />
+                                <label>Icon</label>
+                                <input type="number" min="1" max="4" name="icon" value={icon} onChange={this.handleInputChange} />
+                                <label>Bio</label>
+                                <textarea type="text" name="bio" value={bio} onChange={this.handleInputChange} />
+                                <label>Location</label>
+                                <input type="text" name="location" value={location} onChange={this.handleInputChange} />
+                                <label>Schedule</label>
+                                <input type="number" name="schedule" value={schedule} onChange={this.handleInputChange} />
+                                <input className="submitBtn" type="submit" value="Save Changes" />
+                                <span>{this.state.error && this.state.error}</span>
+                            </form>
+                        </>
 
-                        )
-                        }
-
-                        <div className="rightImg">
-                            <img src={this.getPlantIcon(icon)} alt="plant" />
-                        </div>
-                    </div>
-                    {bossman &&
-                        <div className="buttons">
-                            {bossman && <button id="waterBtn" className="water" onClick={() => this.waterThisPlant(_id)}>Water Plant</button>}
-                            {bossman && <button className="fertilize" onClick={() => this.fertilizeThisPlant(_id)}>Fertilize Plant</button>}
-                            {bossman && <button onClick={this.togglePopup.bind(this)}>Edit Plant</button>}
-                            {manager && <button className="delete" onClick={() => this.killThisPlant(_id)}>Delete Plant</button>}
-                        </div>
+                    )
                     }
+
+                    <div className="rightImg">
+                        <img src={this.getPlantIcon(icon)} alt="plant" />
+                    </div>
                 </div>
-            </>
+                {bossman &&
+                    <div className="buttons">
+                        {bossman && <button id="waterBtn" className="water" onClick={() => this.waterThisPlant(_id)}>Water Plant</button>}
+                        {bossman && <button className="fertilize" onClick={() => this.fertilizeThisPlant(_id)}>Fertilize Plant</button>}
+                        {bossman && <button onClick={this.togglePopup.bind(this)}>Edit Plant</button>}
+                        {manager && <button className="delete" onClick={() => this.killThisPlant(_id)}>Delete Plant</button>}
+                    </div>
+                }
+                {this.state.msg && <p className="popupMessage">{this.state.msg}</p>}
+            </div>
         )
     }
 }
