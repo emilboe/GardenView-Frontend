@@ -3,10 +3,14 @@ import moment from 'moment';
 import { fetchPlants, killPlant, waterPlant, fertPlant, editPlant } from '../../api/plants';
 import { getUser } from '../../helpers/storage';
 import './PopupData.css'
-import plantIcon1 from '../../assets/plant1.png'
-import plantIcon2 from '../../assets/plant2.png'
-import plantIcon3 from '../../assets/plant3.png'
-import plantIcon4 from '../../assets/plant4.png'
+import plantIcon1 from '../../assets/modern/planticon_1.png'
+import plantIcon2 from '../../assets/modern/planticon_2.png'
+import plantIcon3 from '../../assets/modern/planticon_3.png'
+import plantIcon4 from '../../assets/modern/planticon_4.png'
+import plantIcon5 from '../../assets/modern/planticon_5.png'
+import plantIcon6 from '../../assets/modern/planticon_6.png'
+import plantIcon7 from '../../assets/modern/planticon_7.png'
+import plantIcon8 from '../../assets/modern/planticon_8.png'
 
 
 class PopupData extends Component {
@@ -62,6 +66,9 @@ class PopupData extends Component {
                 this.setState({ error: res.error })
             }
             else {
+                this.setState({ msg: "Plant edited!" });
+                this.togState()
+                this.props.getPlants()
                 this.togglePopup()
             }
         }
@@ -69,15 +76,18 @@ class PopupData extends Component {
             this.setState({ error: "You didn't enter anything..." });
         }
     }
-    killThisPlant = (id) => {
+
+    killThisPlant = async (id) => {
         try {
-            killPlant(id)
+            await killPlant(id)
             console.log(this.props)
+            this.setState({ msg: "Plant deleted!" });
+            console.log('tryna kill this plant')
+            this.props.getPlants()
             // this.props.upDoot()
         } catch (err) {
             console.log('Nah, cant kill');
         }
-        this.props.getPlants()
     }
     waterThisPlant = (id) => {
         console.log('id and username:', id, this.state.user.firstName)
@@ -85,29 +95,31 @@ class PopupData extends Component {
             // this.setState({ last_watering_date: new Date() })
             waterPlant(id, this.state.user.firstName)
             this.setState({ msg: "Plant watered!" });
+            this.togState()
+            this.props.getPlants()
         } catch (err) {
             console.log('Nah, cant water');
             this.setState({ msg: "watering failed..." });
         }
-        this.togState()
-        this.props.getPlants()
     }
     fertilizeThisPlant = (id) => {
         try {
             console.log(id, 'fertilized pog')
             fertPlant(id, this.state.user.firstName)
             this.setState({ msg: "Plant fertilized!" });
+            this.togState()
+            this.props.getPlants()
         } catch (err) {
             this.setState({ msg: "Fertilization failed" });
         }
-        this.togState()
-        this.props.getPlants()
     }
     editThisPlant = (id, formData) => {
         try {
             console.log(id, 'fertilized pog')
             editPlant(id, formData)
             this.setState({ msg: "Plant edited!" });
+            this.togState()
+            this.props.getPlants()
         } catch (err) {
             this.setState({ msg: "Edit failed..." });
         }
@@ -140,6 +152,18 @@ class PopupData extends Component {
                 break;
             case '4':
                 planticon = plantIcon4
+                break;
+            case '5':
+                planticon = plantIcon5
+                break;
+            case '6':
+                planticon = plantIcon6
+                break;
+            case '7':
+                planticon = plantIcon7
+                break;
+            case '8':
+                planticon = plantIcon8
                 break;
             default:
                 planticon = plantIcon1
@@ -196,7 +220,7 @@ class PopupData extends Component {
 
         return (
             <div class="popupInfo" >
-                <h1>{plant_name}</h1>
+                {!this.state.formIsOpen ? <h1>{plant_name}</h1> : ''}
                 <div className="popupContent" id="currentPopup">
                     {!this.state.formIsOpen ? (
                         <ul className="indented">
@@ -215,14 +239,14 @@ class PopupData extends Component {
                                 <label>Plant Name</label>
                                 <input autoFocus='autofocus' type="text" name="plant_name" id="firstInput" value={plant_name} onChange={this.handleInputChange} />
                                 <label>Icon</label>
-                                <input type="number" min="1" max="4" name="icon" value={icon} onChange={this.handleInputChange} />
+                                <input type="number" min="1" max="8" name="icon" value={icon} onChange={this.handleInputChange} />
                                 <label>Bio</label>
                                 <textarea type="text" name="bio" value={bio} onChange={this.handleInputChange} />
                                 <label>Location</label>
                                 <input type="text" name="location" value={location} onChange={this.handleInputChange} />
                                 <label>Schedule</label>
                                 <input type="number" name="schedule" value={schedule} onChange={this.handleInputChange} />
-                                <input className="submitBtn" type="submit" value="Save Changes" />
+                                <button className="submitBtn" type="submit" >Save Changes</button>
                                 <span>{this.state.error && this.state.error}</span>
                             </form>
                         </>

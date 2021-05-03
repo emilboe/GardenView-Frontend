@@ -1,9 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400&display=swap");
-.formContainer {
+.columnContainer {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+.rowContainer{
+    display: flex;
+    flex-direction: row;
 }
 .form {
     background-color: white;
@@ -12,7 +16,7 @@
     padding: 2em;
     border-radius: 0.4em;
     max-width: 98%;
-    width: 38rem;
+    width: 35rem;
     margin: auto;
 }
 .form label {
@@ -25,12 +29,14 @@
 .form :is(input, textarea, select) {
     border: none;
     border-radius: 0.1em;
+    background-color: rgb(241, 241, 241);
     padding: 1em;
     width: 100%;
-    border: 1px solid #7b7b7b;
+    /* border: 1px solid #0f7a7a;
     border-right: 0;
-    border-top: 0;
-    margin-top: 0.4rem;
+    border-top: 0; */
+    margin-top: -.5rem;
+    margin-bottom: 1rem;
 }
 .form button {
     text-transform: uppercase;

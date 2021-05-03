@@ -51,9 +51,6 @@ class Dashboard extends Component {
 
     handleSortChange = (sortString) => {
         const sortedUserList = []
-        // console.log(this.state.data)
-        // return
-        // not working correctly
 
         const daysUntilYo = (plant) => {
             var a = moment();
@@ -88,7 +85,7 @@ class Dashboard extends Component {
     }
     render() {
         const manager = this.props.user.role === 'manager';
-        const { isOpen, data } = this.state
+        const { isOpen } = this.state
         const { plants } = this.props
         const userSorts = ['Next watering', 'Plant Name', 'Location', 'Who watered']
 
@@ -111,7 +108,7 @@ class Dashboard extends Component {
                         <CustomSelect options={userSorts} sortUpdate={this.handleSortChange} />
                     </div>
                     <div className="plantView">
-                        {plants && plants.length > 0 ? plants.map((item) => <PlantCard {...this.props} fetchPlants={this.getPlants.bind(this)} urlChange={this.redirectUrl} data={item} key={item._id} />) : 'Plants loading...'}
+                        {plants && plants.length > 0 ? plants.map((item) => <PlantCard {...this.props} fetchPlants={() => this.props.getPlants()} urlChange={this.redirectUrl} data={item} key={item._id} />) : 'Plants loading...'}
                     </div>
                 </div>
             </div>

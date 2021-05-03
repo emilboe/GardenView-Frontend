@@ -81,7 +81,7 @@ class Login extends Component {
                         <button type="submit">Register</button>
                         <div class="loginOptions">
                             <Link className="link-text" to="/login">Log in</Link>
-                            <Link className="link-text" to="/register">Forgot Password?</Link>
+                            <Link className="link-text" to="/forgotPW">Forgot Password?</Link>
                         </div>
                         {this.state.error && <div>{this.state.error}</div>}
                     </form>

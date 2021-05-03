@@ -6,10 +6,14 @@ import locationIcon from '../../assets/location.svg'
 import personIcon from '../../assets/person.svg'
 import waterIcon from '../../assets/watercan.svg'
 import fertIcon from '../../assets/fertilizer.svg'
-import plantIcon1 from '../../assets/plant1.png'
-import plantIcon2 from '../../assets/plant2.png'
-import plantIcon3 from '../../assets/plant3.png'
-import plantIcon4 from '../../assets/plant4.png'
+import plantIcon1 from '../../assets/modern/planticon_1.png'
+import plantIcon2 from '../../assets/modern/planticon_2.png'
+import plantIcon3 from '../../assets/modern/planticon_3.png'
+import plantIcon4 from '../../assets/modern/planticon_4.png'
+import plantIcon5 from '../../assets/modern/planticon_5.png'
+import plantIcon6 from '../../assets/modern/planticon_6.png'
+import plantIcon7 from '../../assets/modern/planticon_7.png'
+import plantIcon8 from '../../assets/modern/planticon_8.png'
 
 
 
@@ -51,6 +55,18 @@ const PlantCard = ({ data, reRender }) => {
 				break;
 			case '4':
 				planticon = plantIcon4
+				break;
+			case '5':
+				planticon = plantIcon5
+				break;
+			case '6':
+				planticon = plantIcon6
+				break;
+			case '7':
+				planticon = plantIcon7
+				break;
+			case '8':
+				planticon = plantIcon8
 				break;
 			default:
 				planticon = plantIcon1

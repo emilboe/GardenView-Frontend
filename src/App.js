@@ -7,10 +7,11 @@ import {
 } from "react-router-dom";
 import { AuthConsumer } from './helpers/Auth';
 import './App.css';
-import Login from './components/Login/login';
 
 // Components import
 // import Test from './components/Test';
+import Login from './components/Login/login';
+import ForgotPW from './components/forgotPW/forgotPW';
 import RegisterForm from './components/RegisterForm/RegisterForm';
 import Header from './components/Header/Header';
 import PrivateRoute from './routes/PrivateRoute';
@@ -82,13 +83,16 @@ class App extends Component {
                                 <Route path='/register'>
                                     <RegisterForm />
                                 </Route>
+                                <Route path='/forgotPW'>
+                                    <ForgotPW />
+                                </Route>
                                 <Route exact path="/gardenview">
-                                    <GardenView plants={this.state.plants} isAuth={isAuth} user={this.state} />
+                                    <GardenView getPlants={this.getPlants.bind(this)} plants={this.state.plants} isAuth={isAuth} user={this.state} />
                                 </Route>
                                 <Route path="/gardenview/:id"
                                     render={(props) => (
                                         <>
-                                            <GardenView plants={this.state.plants} isAuth={isAuth} user={this.state} />
+                                            <GardenView getPlants={this.getPlants.bind(this)} plants={this.state.plants} isAuth={isAuth} user={this.state} />
                                             <Popup
                                                 content={<PopupData getPlants={this.getPlants.bind(this)} {...props} plants={this.state.plants} />}
                                                 redirect='/gardenview'
