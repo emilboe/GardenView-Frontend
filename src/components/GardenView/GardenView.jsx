@@ -30,9 +30,6 @@ class Dashboard extends Component {
     }
     togglePopup() {
         this.setState({ isOpen: !this.state.isOpen });
-
-        // bad implementation!!!!!!!!!!!!!!!!!!!!!!!!!
-        // if (this.state.isOpen === true) window.location.reload();
         console.log('popup toggled')
     }
 
