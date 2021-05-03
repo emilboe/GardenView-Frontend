@@ -35,7 +35,8 @@ A list of commonly used resources that I find helpful are listed in the acknowle
 
 ### Built With
 
-This section should list any major frameworks that you built your project using. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
+This project was built using the MERN stack, with a few smaller plugins included in the acknowledgements section
+
 * [React](https://reactjs.org/)
 * [Node](https://nodejs.org/en/)
 * [Express](https://expressjs.com/)
@@ -52,14 +53,15 @@ To host this project locally you can follow these steps
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/your_username_/Project-Name.git
+   git clone https://github.com/emilboe/GardenViewFrontEnd
    ```
 2. Install NPM packages
    ```sh
    npm install
    ```
-3. Enter the URL to your DB in the `.env` file
-   ```JS
-   DB_URL = 'ENTER DB_URL';
+3. Start the react application
+   ```sh
+   npm start
    ```
+4. Make sure you have the back-end running locally as well.
 
