@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import { fetchPlants, killPlant, waterPlant, fertPlant, editPlant } from '../../api/plants';
-import { getUser } from '../../helpers/storage';
+import { getUser } from '../../actions/storage';
 import './PopupData.css'
 import plantIcon1 from '../../assets/modern/planticon_1.png'
 import plantIcon2 from '../../assets/modern/planticon_2.png'
@@ -11,13 +11,13 @@ import plantIcon5 from '../../assets/modern/planticon_5.png'
 import plantIcon6 from '../../assets/modern/planticon_6.png'
 import plantIcon7 from '../../assets/modern/planticon_7.png'
 import plantIcon8 from '../../assets/modern/planticon_8.png'
-
+var QRCode = require('qrcode.react');
 
 class PopupData extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { formIsOpen: false, bool: false, msg: '', updated: '', inputfocus: true, bio: '', location: '', schedule: '', icon: '', plant_name: '', user: getUser() };
+        this.state = { formIsOpen: false, QRSize: '40', bool: false, msg: '', updated: '', inputfocus: true, bio: '', location: '', schedule: '', icon: '', plant_name: '', user: getUser() };
         this.form = React.createRef();
 
     }
@@ -45,6 +45,12 @@ class PopupData extends Component {
         console.log('name', name)
         console.log('value', value)
         this.setState({ [name]: value });
+    }
+
+    QREnlarge() {
+        var newSize = '40'
+        if (this.state.QRSize === '40') newSize = '256'
+        this.setState({ QRSize: newSize })
     }
 
     handleSubmit = async (event, id) => {
@@ -217,20 +223,21 @@ class PopupData extends Component {
             gardener = user.role === 'gardener'
             bossman = manager || gardener;
         }
-
+        console.log('match url', this.props.match.url)
         return (
             <div class="popupInfo" >
                 {!this.state.formIsOpen ? <h1>{plant_name}</h1> : ''}
                 <div className="popupContent" id="currentPopup">
                     {!this.state.formIsOpen ? (
                         <ul className="indented">
-                            <li><b>Bio:</b> {bio}</li>
                             <li><b>Current Location:</b> {location}</li>
                             <li><b>Last fertilizing date:</b> {convertDate(last_fertilizing_date)}</li>
                             <li><b>Laste watering date:</b> {convertDate(last_watering_date)}</li>
                             <li>Must be watered every <b>{schedule} days</b></li>
                             <li><b>Last watered by:</b> {watered_by}</li>
                             <li><b>Last fertilized by:</b> {fertilized_by}</li>
+                            <li><b>Information:</b> {bio}</li>
+                            <QRCode value={"http://localhost:3000" + this.props.match.url} size={this.state.QRSize} onClick={this.QREnlarge.bind(this)} />
                         </ul>
                     ) : (
                         <>

@@ -1,6 +1,6 @@
 // import axios from 'axios';
 import React, { Component } from 'react';
-import { AuthContext } from '../../helpers/Auth';
+import { AuthContext } from '../../actions/Auth';
 import MiniProfile from '../MiniProfile/MiniProfile';
 import './Profile.css'
 

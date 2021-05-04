@@ -7,7 +7,7 @@ import './InputField.css';
 // -------------- PROPS --------------
 // value, onChange, label, type, id, name, validators
 
-import { validateInput } from '../../helpers/Validators';
+import { validateInput } from '../../actions/Validators';
 
 class InputField extends Component {
     constructor(props) {

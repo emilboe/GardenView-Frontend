@@ -1,5 +1,5 @@
 import { Route, Redirect } from "react-router-dom";
-import { AuthConsumer } from '../helpers/Auth';
+import { AuthConsumer } from '../actions/Auth';
 
 const PrivateRoute = ({ children, ...rest }) => (
   <AuthConsumer>

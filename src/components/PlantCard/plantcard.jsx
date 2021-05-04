@@ -34,8 +34,8 @@ const PlantCard = ({ data, reRender }) => {
 
 	const consistencyCheck = (data) => {
 		const dataIn = daysUntil(data);
-		if (dataIn >= 3) { return { message: `${dataIn} days until next watering`, style: '' } }
-		if (dataIn <= 2 && dataIn > 0) { return { message: `${dataIn} days until next watering`, style: 'warning' } }
+		if (dataIn >= 2) { return { message: `${dataIn} days until next watering`, style: '' } }
+		if (dataIn <= 1 && dataIn > 0) { return { message: `${dataIn} days until next watering`, style: 'warning' } }
 		if (dataIn === 0) { return { message: `Should be watered today!`, style: 'warning' } }
 		if (dataIn < 0) { return { message: `should've been watered ${(dataIn * -1)} days ago`, style: 'warning' } }
 	}

@@ -5,7 +5,8 @@ import {
     Route,
     Redirect
 } from "react-router-dom";
-import { AuthConsumer } from './helpers/Auth';
+import moment from 'moment';
+import { AuthConsumer } from './actions/Auth';
 import './App.css';
 
 // Components import
@@ -18,7 +19,7 @@ import PrivateRoute from './routes/PrivateRoute';
 import ManagerRoute from './routes/ManagerRoute';
 import Profile from './components/Profile/Profile';
 import AddPlant from './components/AddPlant/AddPlant';
-import { getUser } from './helpers/storage';
+import { getUser } from './actions/storage';
 import withUsersFetch from './components/hoc/UsersHoc';
 import Dashboard from './components/Dashboard/Dashboard';
 import GardenView from './components/GardenView/GardenView';
@@ -61,9 +62,33 @@ class App extends Component {
             this.setState({ plants: res.data, isFetching: false, error: null });
         }
     }
+    sortByWatering = (plantArray) => {
+        if(!plantArray) return
+
+        const daysUntilYo = (plant) => {
+            var a = moment();
+            var b = moment(plant.last_watering_date);
+            var differnce = a.diff(b, 'days', true);
+            return (Math.floor(plant.schedule - differnce));
+        }
+        
+        plantArray.sort((a, b) => {
+            var aSched = daysUntilYo(a)
+            var bSched = daysUntilYo(b)
+
+            if (aSched < bSched) return -1
+            else return 1
+        })
+        
+        return plantArray
+
+    }
 
     render() {
         const DashboardWithFetch = withUsersFetch(Dashboard);
+        if (this.state.plants) {
+            const sortedPlants = this.sortByWatering(this.state.plants)
+        }
         return (
             <AuthConsumer>
                 {({ isAuth }) => (

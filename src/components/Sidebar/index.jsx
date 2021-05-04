@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AuthContext } from '../../helpers/Auth';
+import { AuthContext } from '../../actions/Auth';
 import { Link } from "react-router-dom";
 import './Sidebar.css';
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { editUser } from '../../api/users';
-import { AuthContext } from '../../helpers/Auth';
+import { AuthContext } from '../../actions/Auth';
 import './EditUser.css'
 
 class EditUser extends Component {

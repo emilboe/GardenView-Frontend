@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AuthContext } from '../../helpers/Auth';
+import { AuthContext } from '../../actions/Auth';
 import { Redirect, Link } from "react-router-dom";
 
 class Login extends Component {

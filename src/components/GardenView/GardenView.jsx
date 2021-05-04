@@ -98,7 +98,7 @@ class Dashboard extends Component {
                         {manager && <button className="loginBtn" onClick={() => this.togglePopup()}>Add plant</button>}
                         {manager && isOpen &&
                             <Popup
-                                content={<AddPlant fetchPlants={this.getPlants.bind(this)} />}
+                                content={<AddPlant fetchPlants={this.props.getPlants} />}
                                 handleClose={() => this.togglePopup()}
                                 redirect='none'
                             />}

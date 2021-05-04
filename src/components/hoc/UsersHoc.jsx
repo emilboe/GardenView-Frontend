@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { fetchUsers } from '../../api/users';
-import { AuthContext } from '../../helpers/Auth';
+import { AuthContext } from '../../actions/Auth';
 
 function withUsersFetch(WrappedComponent) {
 

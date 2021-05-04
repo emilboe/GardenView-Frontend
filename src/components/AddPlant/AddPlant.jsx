@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { addPlant } from '../../api/plants';
-import { getUser } from '../../helpers/storage';
+import { getUser } from '../../actions/storage';
 import plantIcon1 from '../../assets/modern/planticon_1.png'
 import plantIcon2 from '../../assets/modern/planticon_2.png'
 import plantIcon3 from '../../assets/modern/planticon_3.png'
@@ -115,6 +115,10 @@ class AddPlant extends Component {
                             <option name="2" value="2">2</option>
                             <option name="3" value="3">3</option>
                             <option name="4" value="4">4</option>
+                            <option name="4" value="5">5</option>
+                            <option name="4" value="6">6</option>
+                            <option name="4" value="7">7</option>
+                            <option name="4" value="8">8</option>
                         </select>
 
                         <button type="submit">Add plant</button>

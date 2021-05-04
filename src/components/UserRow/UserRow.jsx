@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Popup from '../Popup/Popup';
 import EditUser from '../EditUser/EditUser';
-import { getUser } from '../../helpers/storage';
+import { getUser } from '../../actions/storage';
 import './UserRow.css'
 
 

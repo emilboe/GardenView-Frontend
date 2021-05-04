@@ -1,5 +1,5 @@
 import './MiniProfile.css'
-import { getUser } from '../../helpers/storage';
+import { getUser } from '../../actions/storage';
 import person from '../../assets/happyman.jpg'
 
 const MiniProfile = () => {

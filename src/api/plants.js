@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getUser } from '../helpers/storage';
+import { getUser } from '../actions/storage';
 
 const fetchPlants = () => {
     return axios.get('/plants');
