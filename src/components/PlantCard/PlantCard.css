@@ -85,6 +85,8 @@ progress::-webkit-progress-value {
   width: 65%;
 }
 .warning {
+  border: none;
+  /* border: 1.5px solid crimson; */
   box-shadow: 0 0 10px crimson;
 }
 .progressText {
@@ -93,7 +95,6 @@ progress::-webkit-progress-value {
   font-size: 0.8rem;
   margin-top: 6px;
   font-weight: bold;
-  color: #13453a;
 }
 .ellipse {
   float: right;
@@ -101,9 +102,14 @@ progress::-webkit-progress-value {
   height: 22px;
   cursor: pointer;
 }
-
+.textwarning {
+  color: crimson;
+}
+.textnormal {
+  color: rgb(17, 54, 92);
+}
 .progwarning::-webkit-progress-value {
-  background: linear-gradient(to right, #c00b0b, #e65404);
+  background: linear-gradient(to right, #4d1988, #294399);
 }
 
 @media screen and (max-width: 520px) {

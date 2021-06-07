@@ -6,11 +6,11 @@ const MiniProfile = () => {
     const { email, firstName, lastName, role } = getUser()
     return (
         <div className="miniprofilecontainer">
-            <img src={person} className="pfp" />
+            <img src={person} alt="profile" className="pfp" />
             <h1 className="capt">{firstName} {lastName}</h1>
             <p className="capt undertitle">{role}</p>
             <p className="email">{email}</p>
-            <button onClick={() => alert('haha, cant do that')}>Edit</button>
+            <button onClick={() => alert('Not currently available')}>Edit</button>
         </div>
     )
 }

@@ -40,6 +40,7 @@ class PopupData extends Component {
             return false
         })
     }
+
     handleInputChange = (event) => {
         const { name, value } = event.target;
         console.log('name', name)
@@ -98,16 +99,16 @@ class PopupData extends Component {
     waterThisPlant = (id) => {
         console.log('id and username:', id, this.state.user.firstName)
         try {
-            // this.setState({ last_watering_date: new Date() })
             waterPlant(id, this.state.user.firstName)
             this.setState({ msg: "Plant watered!" });
             this.togState()
             this.props.getPlants()
         } catch (err) {
-            console.log('Nah, cant water');
+            console.log('watering failed..');
             this.setState({ msg: "watering failed..." });
         }
     }
+
     fertilizeThisPlant = (id) => {
         try {
             console.log(id, 'fertilized pog')
@@ -209,10 +210,7 @@ class PopupData extends Component {
             return JSON.stringify(moment(time).format('dddd DD/MM hh:mm:ss')).replace(/"/g, "");
         }
 
-
-
         const { plant_name, bio, location, _id, icon, last_fertilizing_date, last_watering_date, schedule, watered_by, fertilized_by } = this.state
-        // console.log('state: ', this.state)
 
         const user = this.state.user
         var manager = false;
@@ -257,10 +255,8 @@ class PopupData extends Component {
                                 <span>{this.state.error && this.state.error}</span>
                             </form>
                         </>
-
                     )
                     }
-
                     <div className="rightImg">
                         <img src={this.getPlantIcon(icon)} alt="plant" />
                     </div>

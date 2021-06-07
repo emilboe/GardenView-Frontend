@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import './LandingPage.css'
-import plantImg1 from '../../assets/pexels-daria-shevtsova-1578244.jpg'
 import plantImg2 from '../../assets/almani-qhizq_V876M-unsplash.jpg'
-import screenshot1 from '../../assets/screenshot1.png'
 import screenshot2 from '../../assets/Screenshot_gardenview1.png'
-//tech logos
+
+// Logos
 import logo1 from '../../assets/250px-Node.js_logo.svg.png'
 import logo2 from '../../assets/MongoDB_Logo.png'
 import logo3 from '../../assets/react-logo.png'

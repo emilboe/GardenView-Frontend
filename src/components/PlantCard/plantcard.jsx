@@ -34,7 +34,7 @@ const PlantCard = ({ data, reRender }) => {
 
 	const consistencyCheck = (data) => {
 		const dataIn = daysUntil(data);
-		if (dataIn >= 2) { return { message: `${dataIn} days until next watering`, style: '' } }
+		if (dataIn >= 2) { return { message: `${dataIn} days until next watering`, style: 'normal' } }
 		if (dataIn <= 1 && dataIn > 0) { return { message: `${dataIn} days until next watering`, style: 'warning' } }
 		if (dataIn === 0) { return { message: `Should be watered today!`, style: 'warning' } }
 		if (dataIn < 0) { return { message: `should've been watered ${(dataIn * -1)} days ago`, style: 'warning' } }
@@ -88,7 +88,6 @@ const PlantCard = ({ data, reRender }) => {
 		<div className={`wrapper ${progressData.style}`}
 			onKeyDown={keypress}
 			onClick={() => {
-				console.log('hsitory', history)
 				history.push(`/gardenview/${data._id}`)
 			}}
 			tabIndex={0}>
@@ -111,9 +110,8 @@ const PlantCard = ({ data, reRender }) => {
 				aria-valuemin="0"
 				aria-valuenow={data.schedule - daysUntil(data)}
 				tabIndex="-1"
-				className={`prog${progressData.style}`}
 			/>
-			<p className="progressText">{progressData.message}</p>
+			<p className={`progressText text${progressData.style}`} >{progressData.message}</p>
 		</div>
 	)
 }

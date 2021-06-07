@@ -10,7 +10,7 @@ header * {
 header {
     /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); */
     /* background-color: white; */
-    margin-top: 1.5em;
+    margin-top: 2em;
     height: 3em;
     width: 100%;
     display: flex;
@@ -66,12 +66,12 @@ header .loginBtn {
     border-radius: 0.5em;
     border: none;
     color: white;
-    background-color: lightgreen;
+    background-color: rgb(14, 214, 14);
     padding: 0.3em 2em;
     transition: all 0.1s;
 }
 header .loginBtn:hover {
-    background-color: rgb(63, 194, 63);
+    background-color: rgb(13, 163, 13);
 }
 .logo {
     display: flex;
@@ -142,9 +142,6 @@ header .loginBtn:hover {
     header nav {
         width: 80%;
     }
-    header li {
-        margin-left: -1em;
-    }
     .bg_menu {
         display: none;
     }
@@ -159,5 +156,8 @@ header .loginBtn:hover {
     }
     .bg_menu {
         display: none;
+    }
+    header{
+        margin-bottom: 7em;
     }
 }

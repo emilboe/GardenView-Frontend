@@ -1,16 +1,13 @@
+// ----- React and plugins ----- 
 import React, { Component } from 'react';
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Redirect
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import moment from 'moment';
-import { AuthConsumer } from './actions/Auth';
-import './App.css';
 
-// Components import
-// import Test from './components/Test';
+// ----- API and user Data ----- 
+import { fetchPlants } from './api/plants';
+import { getUser } from './actions/storage';
+
+// ----- Components ----- 
 import Login from './components/Login/login';
 import ForgotPW from './components/forgotPW/forgotPW';
 import RegisterForm from './components/RegisterForm/RegisterForm';
@@ -19,20 +16,17 @@ import PrivateRoute from './routes/PrivateRoute';
 import ManagerRoute from './routes/ManagerRoute';
 import Profile from './components/Profile/Profile';
 import AddPlant from './components/AddPlant/AddPlant';
-import { getUser } from './actions/storage';
 import withUsersFetch from './components/hoc/UsersHoc';
 import Dashboard from './components/Dashboard/Dashboard';
 import GardenView from './components/GardenView/GardenView';
 import LandingPage from './components/LandingPage/LandingPage';
 import PopupData from './components/PopupData/PopupData';
-import { fetchPlants } from './api/plants';
 import Popup from './components/Popup/Popup';
+import { AuthConsumer } from './actions/Auth';
 
-const INITIAL_STATE = {
-    firstName: '',
-    lastName: '',
-    role: '',
-}
+import './App.css';
+
+const INITIAL_STATE = { firstName: '', lastName: '', role: '', }
 
 class App extends Component {
     constructor(props) {
@@ -42,28 +36,25 @@ class App extends Component {
     }
 
     handleLoginSuccess = () => {
-        console.log('The user is authenticated, here we can do whatever we want...');
         this.setState(getUser())
     }
 
     handleLogoutSuccess = () => {
-        console.log('you are logged out!')
         this.setState(INITIAL_STATE)
     }
 
     async getPlants() {
         const res = await fetchPlants();
-        console.log('Plants have been fetched', res.data);
         if (res.error) {
             this.setState({ error: res.error });
         }
         else {
             console.log(res.data)
-            this.setState({ plants: res.data, isFetching: false, error: null });
+            this.setState({ plants: res.data, error: '' });
         }
     }
     sortByWatering = (plantArray) => {
-        if(!plantArray) return
+        if (!plantArray) return
 
         const daysUntilYo = (plant) => {
             var a = moment();
@@ -71,7 +62,7 @@ class App extends Component {
             var differnce = a.diff(b, 'days', true);
             return (Math.floor(plant.schedule - differnce));
         }
-        
+
         plantArray.sort((a, b) => {
             var aSched = daysUntilYo(a)
             var bSched = daysUntilYo(b)
@@ -79,7 +70,7 @@ class App extends Component {
             if (aSched < bSched) return -1
             else return 1
         })
-        
+
         return plantArray
 
     }
@@ -87,7 +78,7 @@ class App extends Component {
     render() {
         const DashboardWithFetch = withUsersFetch(Dashboard);
         if (this.state.plants) {
-            const sortedPlants = this.sortByWatering(this.state.plants)
+            this.sortByWatering(this.state.plants)
         }
         return (
             <AuthConsumer>
