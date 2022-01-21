@@ -22,9 +22,7 @@ class Login extends Component {
 
         //This should implement a better validation
         if (valid) {
-
             const { firstName, lastName, email, password } = this.state
-            console.log(this.state)
             const res = await this.context.register({ firstName, lastName, email, password, role: 'user' });
 
             if (res.error) {

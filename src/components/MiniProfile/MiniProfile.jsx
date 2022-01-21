@@ -3,6 +3,7 @@ import { getUser } from '../../actions/storage';
 import person from '../../assets/happyman.jpg'
 
 const MiniProfile = () => {
+    if (!getUser) return(<h1>Login failed</h1>)
     const { email, firstName, lastName, role } = getUser()
     return (
         <div className="miniprofilecontainer">

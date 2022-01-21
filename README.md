@@ -11,7 +11,7 @@
   <p align="center">
     Student project to organize and manage plants.
     <br />
-    <a href="https://gardenview.herokuapp.com/"><strong>App live on Heroku »</strong></a>
+    <a href="https://gardenview.netlify.app/"><strong>App live on Netlify »</strong></a>
     <br />
   </p>
 </p>
@@ -63,5 +63,5 @@ To host this project locally you can follow these steps
    ```sh
    npm start
    ```
-4. Make sure you have the back-end running locally as well.
+4. View the app locally in your browser.
 

@@ -235,7 +235,7 @@ class PopupData extends Component {
                             <li><b>Last watered by:</b> {watered_by}</li>
                             <li><b>Last fertilized by:</b> {fertilized_by}</li>
                             <li><b>Information:</b> {bio}</li>
-                            <QRCode value={"http://localhost:3000" + this.props.match.url} size={this.state.QRSize} onClick={this.QREnlarge.bind(this)} />
+                            <QRCode value={"https://gardenview.netlify.app/#" + this.props.match.url} size={this.state.QRSize} onClick={this.QREnlarge.bind(this)} />
                         </ul>
                     ) : (
                         <>
